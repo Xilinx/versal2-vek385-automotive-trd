@@ -210,6 +210,7 @@ configure: sync
 		fi && \
 		if ! grep -q 'IMAGE_INSTALL:append = ' conf/local.conf 2>/dev/null; then \
 			echo 'IMAGE_INSTALL:append = "kernel-module-hdmi21"' >> conf/local.conf; \
+			echo 'IMAGE_INSTALL:append = "script"' >> conf/local.conf; \
 			echo 'hdmi modules added in the local.conf '; \
 		fi; \
 	else \

@@ -1,0 +1,45 @@
+/ {
+   memory@00000000 {
+                phandle = <0x04>;
+                compatible = "xlnx,axi-noc2-1.1";
+                xlnx,ip-name = "axi_noc2";
+                device_type = "memory";
+                reg = <0x00 0x00 0x00 0x80000000 0x08 0x00 0x01 0x80000000>;
+                memory_type = "memory";
+        };
+
+    reserved-memory {
+    		cma_reserved@50000000000 {
+                        compatible = "shared-dma-pool";
+                        reusable;
+                        reg = <0x500 0x00 0x01 0x00000000>;  /* 4GB */
+                        phandle = <0x24>;
+                };
+                isp2_reserve_memory {
+                        compatible = "shared-dma-pool";
+                        no-map;
+                        reg = <0x501 0x00000000 0x0 0x40000000>;  /* 1GB */
+                        phandle = <0x556>;
+                };
+                isp3_reserve_memory {
+                        compatible = "shared-dma-pool";
+                        no-map;
+                        reg = <0x501 0x40000000 0x0 0x40000000>;  /* 1GB */
+                        phandle = <0x557>;
+                };
+
+                isp4_reserve_memory {
+                        compatible = "shared-dma-pool";
+                        no-map;
+                        reg = <0x501 0x80000000 0x0 0x40000000>;  /* 1GB */
+                        phandle = <0x558>;
+                };
+
+                isp5_reserve_memory {
+                        compatible = "shared-dma-pool";
+                        no-map;
+                        reg = <0x501 0xC0000000 0x0 0x40000000>;  /* 1GB */
+                        phandle = <0x559>;
+                };
+    };
+};

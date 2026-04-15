@@ -23,7 +23,7 @@ YOCTO_DIR := $(BUILD_BASE)/yocto-edf-25.11
 
 # Build target configuration
 MACHINE := versal-2ve-2vm-vek385-revb-sdt-seg
-SDT_DIR := $(BUILD_BASE)/../hw/mipi_sdt
+SDT_DIR := $(BUILD_BASE)/../hw/Versal2_T50_12Sensor_8MP-sdt
 IMAGE_OSPI := edf-ospi
 IMAGE_ROOTFS := edf-linux-disk-image
 
@@ -210,6 +210,7 @@ configure: sync
 		fi && \
 		if ! grep -q 'IMAGE_INSTALL:append = ' conf/local.conf 2>/dev/null; then \
 			echo 'IMAGE_INSTALL:append = "kernel-module-hdmi21"' >> conf/local.conf; \
+			echo 'IMAGE_INSTALL:append = "script"' >> conf/local.conf; \
 			echo 'hdmi modules added in the local.conf '; \
 		fi; \
 	else \
@@ -271,6 +272,7 @@ build-ospi: gen-machine
 	@echo ""
 	@cd $(YOCTO_DIR) && \
 		bash -c "source edf-init-build-env && \
+		bitbake-layers add-layer $(current_dir)/meta-custom-bsp \
 		MACHINE=$(MACHINE) bitbake $(IMAGE_OSPI)" || { \
 		printf "%b\n" "$(COLOR_YELLOW)Error: OSPI image build failed$(COLOR_RESET)"; \
 		exit 1; \

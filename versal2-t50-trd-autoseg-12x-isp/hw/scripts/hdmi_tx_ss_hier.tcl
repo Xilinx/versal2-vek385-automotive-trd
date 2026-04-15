@@ -1,7 +1,3 @@
-# Copyright (c) 2026 Advanced Micro Devices, Inc.
-# SPDX-License-Identifier: MIT
-# -----------------------------------------------
-
 
 ################################################################
 # This is a generated script based on design: design_1
@@ -636,7 +632,7 @@ LCPLL TX_LANE_DESKEW_HDMI_ENABLE true TX_REFCLK_SOURCE R5 TX_USER_DATA_WIDTH 40 
 LCPLL TX_LANE_DESKEW_HDMI_ENABLE true TX_REFCLK_SOURCE R5 TX_USER_DATA_WIDTH 40 TX_INT_DATA_WIDTH 40 TX_LINE_RATE 10.0 TX_REFCLK_FREQUENCY 400.0} \
     CONFIG.INTF0_GT_SETTINGS(LR9_SETTINGS) {PRESET None GT_DIRECTION SIMPLEX_TX TX_PLL_TYPE LCPLL TX_DATA_ENCODING RAW TX_BUFFER_MODE 1 TX_OUTCLK_SOURCE TXPROGDIVCLK TXPROGDIV_FREQ_ENABLE true TXPROGDIV_FREQ_SOURCE\
 LCPLL TX_LANE_DESKEW_HDMI_ENABLE true TX_REFCLK_SOURCE R5 TX_USER_DATA_WIDTH 40 TX_INT_DATA_WIDTH 40 TX_LINE_RATE 12.0 TX_REFCLK_FREQUENCY 400.0} \
-    CONFIG.INTF0_PARENTID {design_1_hdmi_gt_controller_0} \
+    CONFIG.INTF0_PARENTID {design_1_hdmi_gt_controller_2} \
     CONFIG.INTF1_GT_DIRECTION {SIMPLEX_RX} \
     CONFIG.INTF1_GT_SETTINGS(GT_DIRECTION) {SIMPLEX_RX} \
     CONFIG.INTF1_GT_SETTINGS(GT_TYPE) {GTYP} \
@@ -661,7 +657,7 @@ LCPLL TX_LANE_DESKEW_HDMI_ENABLE true TX_REFCLK_SOURCE R5 TX_USER_DATA_WIDTH 40 
     CONFIG.INTF1_GT_SETTINGS(LR9_SETTINGS) {PRESET None GT_DIRECTION SIMPLEX_RX RX_PLL_TYPE RPLL RX_DATA_DECODING RAW RX_BUFFER_MODE 1 RX_REFCLK_SOURCE R5 RX_USER_DATA_WIDTH 40 RX_INT_DATA_WIDTH 40 RX_LINE_RATE\
 12.0 RX_REFCLK_FREQUENCY 400.0 RX_EQ_MODE DFE} \
     CONFIG.INTF1_NO_OF_LANES {4} \
-    CONFIG.INTF1_PARENTID {design_1_hdmi_gt_controller_0} \
+    CONFIG.INTF1_PARENTID {design_1_hdmi_gt_controller_2} \
     CONFIG.INTF_PARENT_PIN_LIST {QUAD0_TX0 /Mixer_HDMI_Hier/hdmiphy_ss_0/hdmi_gt_controller/gt_tx0 QUAD0_TX1 /Mixer_HDMI_Hier/hdmiphy_ss_0/hdmi_gt_controller/gt_tx1 QUAD0_TX2 /Mixer_HDMI_Hier/hdmiphy_ss_0/hdmi_gt_controller/gt_tx2\
 QUAD0_TX3 /Mixer_HDMI_Hier/hdmiphy_ss_0/hdmi_gt_controller/gt_tx3 QUAD0_RX0 /Mixer_HDMI_Hier/hdmiphy_ss_0/hdmi_gt_controller/gt_rx0 QUAD0_RX1 /Mixer_HDMI_Hier/hdmiphy_ss_0/hdmi_gt_controller/gt_rx1 QUAD0_RX2\
 /Mixer_HDMI_Hier/hdmiphy_ss_0/hdmi_gt_controller/gt_rx2 QUAD0_RX3 /Mixer_HDMI_Hier/hdmiphy_ss_0/hdmi_gt_controller/gt_rx3} \
@@ -703,8 +699,8 @@ QUAD0_TX3 /Mixer_HDMI_Hier/hdmiphy_ss_0/hdmi_gt_controller/gt_tx3 QUAD0_RX0 /Mix
     CONFIG.QUAD0_REFCLK_STRING {HSCLK0_LCPLLGTREFCLK1 refclk_PROT0_R1_multiple_ext_freq HSCLK0_LCPLLSOUTHREFCLK1 refclk_PROT0_R5_400_MHz_unique1 HSCLK0_RPLLGTREFCLK0 refclk_PROT1_R0_multiple_ext_freq HSCLK0_RPLLSOUTHREFCLK1\
 refclk_PROT1_R5_400_MHz_unique1 HSCLK1_LCPLLGTREFCLK1 refclk_PROT0_R1_multiple_ext_freq HSCLK1_LCPLLSOUTHREFCLK1 refclk_PROT0_R5_400_MHz_unique1 HSCLK1_RPLLGTREFCLK0 refclk_PROT1_R0_multiple_ext_freq HSCLK1_RPLLSOUTHREFCLK1\
 refclk_PROT1_R5_400_MHz_unique1} \
-    CONFIG.QUAD0_USAGE {TX_QUAD_CH {TXQuad_0_/design_1_gtwiz_versal_0/design_1_gtwiz_versal_0_gt_quad_base_0 {/design_1_gtwiz_versal_0/design_1_gtwiz_versal_0_gt_quad_base_0 design_1_hdmi_gt_controller_0.IP_CH0,design_1_hdmi_gt_controller_0.IP_CH1,design_1_hdmi_gt_controller_0.IP_CH2,design_1_hdmi_gt_controller_0.IP_CH3\
-MSTRCLK 1,0,0,0 IS_CURRENT_QUAD 1}} RX_QUAD_CH {RXQuad_0_/design_1_gtwiz_versal_0/design_1_gtwiz_versal_0_gt_quad_base_0 {/design_1_gtwiz_versal_0/design_1_gtwiz_versal_0_gt_quad_base_0 design_1_hdmi_gt_controller_0.IP_CH0,design_1_hdmi_gt_controller_0.IP_CH1,design_1_hdmi_gt_controller_0.IP_CH2,design_1_hdmi_gt_controller_0.IP_CH3\
+    CONFIG.QUAD0_USAGE {TX_QUAD_CH {TXQuad_0_/design_1_gtwiz_versal_2/design_1_gtwiz_versal_2_gt_quad_base_0 {/design_1_gtwiz_versal_2/design_1_gtwiz_versal_2_gt_quad_base_0 design_1_hdmi_gt_controller_2.IP_CH0,design_1_hdmi_gt_controller_2.IP_CH1,design_1_hdmi_gt_controller_2.IP_CH2,design_1_hdmi_gt_controller_2.IP_CH3\
+MSTRCLK 1,0,0,0 IS_CURRENT_QUAD 1}} RX_QUAD_CH {RXQuad_0_/design_1_gtwiz_versal_2/design_1_gtwiz_versal_2_gt_quad_base_0 {/design_1_gtwiz_versal_2/design_1_gtwiz_versal_2_gt_quad_base_0 design_1_hdmi_gt_controller_2.IP_CH0,design_1_hdmi_gt_controller_2.IP_CH1,design_1_hdmi_gt_controller_2.IP_CH2,design_1_hdmi_gt_controller_2.IP_CH3\
 MSTRCLK 1,0,0,0 IS_CURRENT_QUAD 1}}} \
   ] $gtwiz_versal
 
@@ -934,10 +930,6 @@ proc create_hier_cell_hdmi_tx_ss_hier { parentCell nameHier } {
 
   create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:inimm_rtl:1.0 M11_INI
 
-  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:inimm_rtl:1.0 M12_INI
-
-  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:inimm_rtl:1.0 M13_INI
-
 
   # Create pins
   create_bd_pin -dir I TX_HPD_IN
@@ -1020,7 +1012,7 @@ proc create_hier_cell_hdmi_tx_ss_hier { parentCell nameHier } {
     CONFIG.CLKOUT_MATCHED_ROUTING {false,false,false,false,false,false,false} \
     CONFIG.CLKOUT_PORT {clk_out1,clk_out2,clk_out3,clk_out4,clk_out5,clk_out6,clk_out7} \
     CONFIG.CLKOUT_REQUESTED_DUTY_CYCLE {50.000,50.000,50.000,50.000,50.000,50.000,50.000} \
-    CONFIG.CLKOUT_REQUESTED_OUT_FREQUENCY {450,380,100.000,100.000,100.000,100.000,100.000} \
+    CONFIG.CLKOUT_REQUESTED_OUT_FREQUENCY {450,300,100.000,100.000,100.000,100.000,100.000} \
     CONFIG.CLKOUT_REQUESTED_PHASE {0.000,0.000,0.000,0.000,0.000,0.000,0.000} \
     CONFIG.CLKOUT_USED {true,true,false,false,false,false,false} \
     CONFIG.PRIM_SOURCE {No_buffer} \
@@ -1033,14 +1025,14 @@ proc create_hier_cell_hdmi_tx_ss_hier { parentCell nameHier } {
   set axi_noc2_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_noc2 axi_noc2_0 ]
   set_property -dict [list \
     CONFIG.NUM_MI {0} \
-    CONFIG.NUM_NMI {14} \
-    CONFIG.NUM_SI {14} \
+    CONFIG.NUM_NMI {12} \
+    CONFIG.NUM_SI {12} \
   ] $axi_noc2_0
 
 
   set_property -dict [ list \
    CONFIG.DATA_WIDTH {512} \
-   CONFIG.CONNECTIONS {M07_INI {read_bw {500} write_bw {50} } M00_INI {read_bw {500} write_bw {50} }} \
+   CONFIG.CONNECTIONS {M06_INI {read_bw {500} write_bw {0} } M00_INI {read_bw {500} write_bw {0} }} \
    CONFIG.DEST_IDS {} \
    CONFIG.NOC_PARAMS {} \
    CONFIG.CATEGORY {pl} \
@@ -1048,7 +1040,7 @@ proc create_hier_cell_hdmi_tx_ss_hier { parentCell nameHier } {
 
   set_property -dict [ list \
    CONFIG.DATA_WIDTH {512} \
-   CONFIG.CONNECTIONS {M07_INI {read_bw {500} write_bw {50} } M00_INI {read_bw {500} write_bw {50} }} \
+   CONFIG.CONNECTIONS {M06_INI {read_bw {500} write_bw {0} } M00_INI {read_bw {500} write_bw {0} }} \
    CONFIG.DEST_IDS {} \
    CONFIG.NOC_PARAMS {} \
    CONFIG.CATEGORY {pl} \
@@ -1056,7 +1048,7 @@ proc create_hier_cell_hdmi_tx_ss_hier { parentCell nameHier } {
 
   set_property -dict [ list \
    CONFIG.DATA_WIDTH {512} \
-   CONFIG.CONNECTIONS {M08_INI {read_bw {500} write_bw {50} } M01_INI {read_bw {500} write_bw {50} }} \
+   CONFIG.CONNECTIONS {M07_INI {read_bw {500} write_bw {0} } M01_INI {read_bw {500} write_bw {0} }} \
    CONFIG.DEST_IDS {} \
    CONFIG.NOC_PARAMS {} \
    CONFIG.CATEGORY {pl} \
@@ -1064,7 +1056,7 @@ proc create_hier_cell_hdmi_tx_ss_hier { parentCell nameHier } {
 
   set_property -dict [ list \
    CONFIG.DATA_WIDTH {512} \
-   CONFIG.CONNECTIONS {M08_INI {read_bw {500} write_bw {50} } M01_INI {read_bw {500} write_bw {50} }} \
+   CONFIG.CONNECTIONS {M07_INI {read_bw {500} write_bw {0} } M01_INI {read_bw {500} write_bw {0} }} \
    CONFIG.DEST_IDS {} \
    CONFIG.NOC_PARAMS {} \
    CONFIG.CATEGORY {pl} \
@@ -1072,7 +1064,7 @@ proc create_hier_cell_hdmi_tx_ss_hier { parentCell nameHier } {
 
   set_property -dict [ list \
    CONFIG.DATA_WIDTH {512} \
-   CONFIG.CONNECTIONS {M02_INI {read_bw {500} write_bw {50} } M09_INI {read_bw {500} write_bw {50} }} \
+   CONFIG.CONNECTIONS {M02_INI {read_bw {500} write_bw {0} } M08_INI {read_bw {500} write_bw {0} }} \
    CONFIG.DEST_IDS {} \
    CONFIG.NOC_PARAMS {} \
    CONFIG.CATEGORY {pl} \
@@ -1080,7 +1072,7 @@ proc create_hier_cell_hdmi_tx_ss_hier { parentCell nameHier } {
 
   set_property -dict [ list \
    CONFIG.DATA_WIDTH {512} \
-   CONFIG.CONNECTIONS {M02_INI {read_bw {500} write_bw {50} } M09_INI {read_bw {500} write_bw {500} }} \
+   CONFIG.CONNECTIONS {M02_INI {read_bw {500} write_bw {0} } M08_INI {read_bw {500} write_bw {0} }} \
    CONFIG.DEST_IDS {} \
    CONFIG.NOC_PARAMS {} \
    CONFIG.CATEGORY {pl} \
@@ -1088,7 +1080,7 @@ proc create_hier_cell_hdmi_tx_ss_hier { parentCell nameHier } {
 
   set_property -dict [ list \
    CONFIG.DATA_WIDTH {512} \
-   CONFIG.CONNECTIONS {M03_INI {read_bw {500} write_bw {50} } M10_INI {read_bw {500} write_bw {500} }} \
+   CONFIG.CONNECTIONS {M03_INI {read_bw {500} write_bw {0} } M09_INI {read_bw {500} write_bw {0} }} \
    CONFIG.DEST_IDS {} \
    CONFIG.NOC_PARAMS {} \
    CONFIG.CATEGORY {pl} \
@@ -1096,7 +1088,7 @@ proc create_hier_cell_hdmi_tx_ss_hier { parentCell nameHier } {
 
   set_property -dict [ list \
    CONFIG.DATA_WIDTH {512} \
-   CONFIG.CONNECTIONS {M03_INI {read_bw {500} write_bw {50} } M10_INI {read_bw {500} write_bw {500} }} \
+   CONFIG.CONNECTIONS {M03_INI {read_bw {500} write_bw {0} } M09_INI {read_bw {500} write_bw {0} }} \
    CONFIG.DEST_IDS {} \
    CONFIG.NOC_PARAMS {} \
    CONFIG.CATEGORY {pl} \
@@ -1104,7 +1096,7 @@ proc create_hier_cell_hdmi_tx_ss_hier { parentCell nameHier } {
 
   set_property -dict [ list \
    CONFIG.DATA_WIDTH {512} \
-   CONFIG.CONNECTIONS {M04_INI {read_bw {1100} write_bw {50} } M11_INI {read_bw {1100} write_bw {50} }} \
+   CONFIG.CONNECTIONS {M04_INI {read_bw {500} write_bw {0} } M10_INI {read_bw {500} write_bw {0} }} \
    CONFIG.DEST_IDS {} \
    CONFIG.NOC_PARAMS {} \
    CONFIG.CATEGORY {pl} \
@@ -1112,7 +1104,7 @@ proc create_hier_cell_hdmi_tx_ss_hier { parentCell nameHier } {
 
   set_property -dict [ list \
    CONFIG.DATA_WIDTH {512} \
-   CONFIG.CONNECTIONS {M04_INI {read_bw {1100} write_bw {50} } M11_INI {read_bw {1100} write_bw {50} }} \
+   CONFIG.CONNECTIONS {M04_INI {read_bw {500} write_bw {0} } M10_INI {read_bw {500} write_bw {0} }} \
    CONFIG.DEST_IDS {} \
    CONFIG.NOC_PARAMS {} \
    CONFIG.CATEGORY {pl} \
@@ -1120,7 +1112,7 @@ proc create_hier_cell_hdmi_tx_ss_hier { parentCell nameHier } {
 
   set_property -dict [ list \
    CONFIG.DATA_WIDTH {512} \
-   CONFIG.CONNECTIONS {M05_INI {read_bw {700} write_bw {50} } M12_INI {read_bw {700} write_bw {50} }} \
+   CONFIG.CONNECTIONS {M05_INI {read_bw {500} write_bw {0} } M11_INI {read_bw {500} write_bw {0} }} \
    CONFIG.DEST_IDS {} \
    CONFIG.NOC_PARAMS {} \
    CONFIG.CATEGORY {pl} \
@@ -1128,30 +1120,14 @@ proc create_hier_cell_hdmi_tx_ss_hier { parentCell nameHier } {
 
   set_property -dict [ list \
    CONFIG.DATA_WIDTH {512} \
-   CONFIG.CONNECTIONS {M05_INI {read_bw {700} write_bw {50} } M12_INI {read_bw {700} write_bw {50} }} \
+   CONFIG.CONNECTIONS {M05_INI {read_bw {500} write_bw {0} } M11_INI {read_bw {500} write_bw {0} }} \
    CONFIG.DEST_IDS {} \
    CONFIG.NOC_PARAMS {} \
    CONFIG.CATEGORY {pl} \
  ] [get_bd_intf_pins $axi_noc2_0/S11_AXI]
 
   set_property -dict [ list \
-   CONFIG.DATA_WIDTH {512} \
-   CONFIG.CONNECTIONS {M06_INI {read_bw {700} write_bw {50} } M13_INI {read_bw {700} write_bw {50} }} \
-   CONFIG.DEST_IDS {} \
-   CONFIG.NOC_PARAMS {} \
-   CONFIG.CATEGORY {pl} \
- ] [get_bd_intf_pins $axi_noc2_0/S12_AXI]
-
-  set_property -dict [ list \
-   CONFIG.DATA_WIDTH {512} \
-   CONFIG.CONNECTIONS {M06_INI {read_bw {700} write_bw {50} } M13_INI {read_bw {700} write_bw {50} }} \
-   CONFIG.DEST_IDS {} \
-   CONFIG.NOC_PARAMS {} \
-   CONFIG.CATEGORY {pl} \
- ] [get_bd_intf_pins $axi_noc2_0/S13_AXI]
-
-  set_property -dict [ list \
-   CONFIG.ASSOCIATED_BUSIF {S00_AXI:S01_AXI:S02_AXI:S03_AXI:S04_AXI:S05_AXI:S06_AXI:S07_AXI:S08_AXI:S09_AXI:S10_AXI:S11_AXI:S12_AXI:S13_AXI} \
+   CONFIG.ASSOCIATED_BUSIF {S00_AXI:S01_AXI:S02_AXI:S03_AXI:S04_AXI:S05_AXI:S06_AXI:S07_AXI:S08_AXI:S09_AXI:S10_AXI:S11_AXI} \
  ] [get_bd_pins $axi_noc2_0/aclk0]
 
   # Create instance: util_vector_logic_0, and set properties
@@ -1211,7 +1187,7 @@ proc create_hier_cell_hdmi_tx_ss_hier { parentCell nameHier } {
     CONFIG.MAX_COLS {7680} \
     CONFIG.MAX_DATA_WIDTH {12} \
     CONFIG.MAX_ROWS {4320} \
-    CONFIG.NR_LAYERS {15} \
+    CONFIG.NR_LAYERS {13} \
     CONFIG.SAMPLES_PER_CLOCK {8} \
     CONFIG.VIDEO_FORMAT {0} \
   ] $v_mix_0
@@ -1270,8 +1246,6 @@ proc create_hier_cell_hdmi_tx_ss_hier { parentCell nameHier } {
   connect_bd_intf_net -intf_net Conn8 [get_bd_intf_pins axi_noc2_0/M09_INI] [get_bd_intf_pins M09_INI]
   connect_bd_intf_net -intf_net Conn9 [get_bd_intf_pins axi_noc2_0/M10_INI] [get_bd_intf_pins M10_INI]
   connect_bd_intf_net -intf_net Conn10 [get_bd_intf_pins axi_noc2_0/M11_INI] [get_bd_intf_pins M11_INI]
-  connect_bd_intf_net -intf_net Conn11 [get_bd_intf_pins axi_noc2_0/M12_INI] [get_bd_intf_pins M12_INI]
-  connect_bd_intf_net -intf_net Conn12 [get_bd_intf_pins axi_noc2_0/M13_INI] [get_bd_intf_pins M13_INI]
   connect_bd_intf_net -intf_net axi_noc2_0_M04_INI [get_bd_intf_pins M04_INI] [get_bd_intf_pins axi_noc2_0/M04_INI]
   connect_bd_intf_net -intf_net axi_noc2_0_M05_INI [get_bd_intf_pins M05_INI] [get_bd_intf_pins axi_noc2_0/M05_INI]
   connect_bd_intf_net -intf_net axi_noc2_0_M06_INI [get_bd_intf_pins M06_INI] [get_bd_intf_pins axi_noc2_0/M06_INI]
@@ -1306,8 +1280,6 @@ proc create_hier_cell_hdmi_tx_ss_hier { parentCell nameHier } {
   connect_bd_intf_net -intf_net v_mix_0_m_axi_mm_video10 [get_bd_intf_pins v_mix_0/m_axi_mm_video10] [get_bd_intf_pins axi_noc2_0/S09_AXI]
   connect_bd_intf_net -intf_net v_mix_0_m_axi_mm_video11 [get_bd_intf_pins v_mix_0/m_axi_mm_video11] [get_bd_intf_pins axi_noc2_0/S10_AXI]
   connect_bd_intf_net -intf_net v_mix_0_m_axi_mm_video12 [get_bd_intf_pins v_mix_0/m_axi_mm_video12] [get_bd_intf_pins axi_noc2_0/S11_AXI]
-  connect_bd_intf_net -intf_net v_mix_0_m_axi_mm_video13 [get_bd_intf_pins v_mix_0/m_axi_mm_video13] [get_bd_intf_pins axi_noc2_0/S12_AXI]
-  connect_bd_intf_net -intf_net v_mix_0_m_axi_mm_video14 [get_bd_intf_pins v_mix_0/m_axi_mm_video14] [get_bd_intf_pins axi_noc2_0/S13_AXI]
   connect_bd_intf_net -intf_net v_mix_0_m_axis_video [get_bd_intf_pins tx_video_axis_reg_slice/S_AXIS] [get_bd_intf_pins v_mix_0/m_axis_video]
 
   # Create port connections
@@ -1420,107 +1392,101 @@ proc create_hier_cell_hdmi_tx_ss_hier { parentCell nameHier } {
   # Perform GUI Layout
   regenerate_bd_layout -hierarchy [get_bd_cells /hdmi_tx_ss_hier] -layout_string {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.790332",
-   "Default View_TopLeft":"-702,3",
-   "DisplayHardenedConnections":"1",
-   "DisplayPinAutomationMissing":"1",
-   "DisplayPinsOfHiddenNets":"1",
-   "DisplayTieOff":"1",
+   "Default View_ScaleFactor":"0.296778",
+   "Default View_TopLeft":"-532,3",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.8.0 2024-04-26 e1825d835c VDI=44 GEI=38 GUI=JA:21.0 TLS
 #  -string -flagsOSRD
-preplace port TX_DDC_OUT -pg 1 -lvl 8 -x 3060 -y 1030 -defaultsOSRD
-preplace port HDMI_CTRL -pg 1 -lvl 8 -x 3060 -y 460 -defaultsOSRD
-preplace port GT_Serial -pg 1 -lvl 8 -x 3060 -y 650 -defaultsOSRD
-preplace port GT_DRU_FRL_CLK_IN -pg 1 -lvl 0 -x 0 -y 1110 -defaultsOSRD
-preplace port TX_REFCLK_P_IN_V -pg 1 -lvl 0 -x 0 -y 1250 -defaultsOSRD
-preplace port HDMI_RX_CLK_P_IN_V -pg 1 -lvl 0 -x 0 -y 1600 -defaultsOSRD
-preplace port S00_AXI -pg 1 -lvl 0 -x 0 -y 570 -defaultsOSRD
-preplace port M00_INI -pg 1 -lvl 8 -x 3060 -y 70 -defaultsOSRD
-preplace port M01_INI -pg 1 -lvl 8 -x 3060 -y 90 -defaultsOSRD
-preplace port M02_INI -pg 1 -lvl 8 -x 3060 -y 110 -defaultsOSRD
-preplace port M03_INI -pg 1 -lvl 8 -x 3060 -y 130 -defaultsOSRD
-preplace port M04_INI -pg 1 -lvl 8 -x 3060 -y 150 -defaultsOSRD
-preplace port M05_INI -pg 1 -lvl 8 -x 3060 -y 170 -defaultsOSRD
-preplace port M06_INI -pg 1 -lvl 8 -x 3060 -y 190 -defaultsOSRD
-preplace port M07_INI -pg 1 -lvl 8 -x 3060 -y 210 -defaultsOSRD
-preplace port M08_INI -pg 1 -lvl 8 -x 3060 -y 230 -defaultsOSRD
-preplace port M09_INI -pg 1 -lvl 8 -x 3060 -y 250 -defaultsOSRD
-preplace port M10_INI -pg 1 -lvl 8 -x 3060 -y 270 -defaultsOSRD
-preplace port M11_INI -pg 1 -lvl 8 -x 3060 -y 290 -defaultsOSRD
-preplace port M12_INI -pg 1 -lvl 8 -x 3060 -y 310 -defaultsOSRD
-preplace port M13_INI -pg 1 -lvl 8 -x 3060 -y 330 -defaultsOSRD
-preplace port port-id_TX_HPD_IN -pg 1 -lvl 0 -x 0 -y 1080 -defaultsOSRD
-preplace port port-id_LED0 -pg 1 -lvl 8 -x 3060 -y 1050 -defaultsOSRD
-preplace port port-id_IDT8T49N241_LOL_IN -pg 1 -lvl 0 -x 0 -y 1170 -defaultsOSRD
-preplace port port-id_RX_REFCLK_P_OUT -pg 1 -lvl 8 -x 3060 -y 850 -defaultsOSRD
-preplace port port-id_RX_REFCLK_N_OUT -pg 1 -lvl 8 -x 3060 -y 870 -defaultsOSRD
-preplace port port-id_Timer_interrupt -pg 1 -lvl 8 -x 3060 -y 1430 -defaultsOSRD
-preplace port port-id_clk_in1 -pg 1 -lvl 0 -x 0 -y 1390 -defaultsOSRD
-preplace port port-id_hdmi_txss_irq -pg 1 -lvl 8 -x 3060 -y 1070 -defaultsOSRD
-preplace port port-id_hdmi_gt_irq -pg 1 -lvl 8 -x 3060 -y 950 -defaultsOSRD
-preplace port port-id_iic2intc_irpt -pg 1 -lvl 8 -x 3060 -y 480 -defaultsOSRD
-preplace port port-id_Mixer_irq -pg 1 -lvl 8 -x 3060 -y 400 -defaultsOSRD
-preplace portBus TX_TI_ENABLE -pg 1 -lvl 8 -x 3060 -y 1260 -defaultsOSRD
-preplace portBus Op1 -pg 1 -lvl 0 -x 0 -y 1330 -defaultsOSRD
-preplace inst rst_processor_1_300M -pg 1 -lvl 3 -x 930 -y 1350 -defaultsOSRD
-preplace inst tx_video_axis_reg_slice -pg 1 -lvl 5 -x 1880 -y 640 -defaultsOSRD
-preplace inst ilslice_5 -pg 1 -lvl 3 -x 930 -y 260 -defaultsOSRD
-preplace inst v_hdmi_txss1 -pg 1 -lvl 6 -x 2270 -y 780 -defaultsOSRD
-preplace inst ilconstant_1 -pg 1 -lvl 3 -x 930 -y 160 -defaultsOSRD
-preplace inst rst_processor_1_100M -pg 1 -lvl 2 -x 520 -y 1500 -defaultsOSRD
-preplace inst vcc_const -pg 1 -lvl 4 -x 1450 -y 990 -defaultsOSRD
-preplace inst clkx_wiz_0 -pg 1 -lvl 2 -x 520 -y 1340 -defaultsOSRD
-preplace inst axi_noc2_0 -pg 1 -lvl 7 -x 2820 -y 200 -defaultsOSRD
-preplace inst util_vector_logic_0 -pg 1 -lvl 1 -x 170 -y 1330 -defaultsOSRD
-preplace inst axi_gpio -pg 1 -lvl 4 -x 1450 -y 640 -defaultsOSRD
-preplace inst v_mix_0 -pg 1 -lvl 4 -x 1450 -y 210 -defaultsOSRD
-preplace inst v_fifo_dc -pg 1 -lvl 5 -x 1880 -y 940 -defaultsOSRD
-preplace inst axi_smartconnect_0 -pg 1 -lvl 3 -x 930 -y 600 -defaultsOSRD
-preplace inst axi_iic_0 -pg 1 -lvl 7 -x 2820 -y 480 -defaultsOSRD
-preplace inst hdmiphy_ss_0 -pg 1 -lvl 7 -x 2820 -y 800 -defaultsOSRD
-preplace inst gt_refclk_buf_ss_0 -pg 1 -lvl 6 -x 2270 -y 1110 -defaultsOSRD
-preplace inst gt_refclk_buf_ss_1 -pg 1 -lvl 6 -x 2270 -y 1250 -defaultsOSRD
-preplace inst gt_refclk_buf_ss_2 -pg 1 -lvl 6 -x 2270 -y 1600 -defaultsOSRD
-preplace inst vfmc_ctlr_ss_0 -pg 1 -lvl 7 -x 2820 -y 1200 -defaultsOSRD
-preplace inst axi_timer_0 -pg 1 -lvl 7 -x 2820 -y 1400 -defaultsOSRD
-preplace inst ilconstant_0 -pg 1 -lvl 5 -x 1880 -y 760 -defaultsOSRD
-preplace netloc Net 1 0 2 20 1270 320
-preplace netloc axi_gpio_gpio_io_o 1 2 3 740 420 NJ 420 1690
-preplace netloc axi_iic_0_iic2intc_irpt 1 7 1 NJ 480
-preplace netloc axi_timer_0_interrupt 1 7 1 NJ 1430
-preplace netloc hdmiphy_ss_0_irq 1 7 1 NJ 950
-preplace netloc ilconstant_0_dout 1 5 1 2060 740n
-preplace netloc ilconstant_1_dout 1 3 1 1110 160n
-preplace netloc ilslice_5_Dout 1 3 1 NJ 260
-preplace netloc net_bdry_in_IDT8T49N241_LOL_IN 1 0 7 20J 460 NJ 460 NJ 460 1150J 470 NJ 470 NJ 470 2560J
-preplace netloc net_bdry_in_TX_HPD_IN 1 0 6 NJ 1080 NJ 1080 NJ 1080 NJ 1080 NJ 1080 2050J
-preplace netloc net_cips_ss_0_clk_out2 1 2 5 730 720 1190 720 1700 820 2030 340 NJ
-preplace netloc net_cips_ss_0_dcm_locked 1 3 3 1210 730 1710 1060 2060
-preplace netloc net_cips_ss_0_frl_clk 1 2 4 740 1120 NJ 1120 NJ 1120 2070J
-preplace netloc net_cips_ss_0_peripheral_aresetn 1 2 5 700 470 1140J 480 NJ 480 2020 510 2530
-preplace netloc net_clkx_wiz_0_locked 1 2 1 710 1320n
-preplace netloc net_gt_refclk_buf_ss_0_IBUFDSGT_ODIV2_OUT 1 6 1 2600 980n
-preplace netloc net_gt_refclk_buf_ss_0_IBUFDSGT_OUT 1 6 1 2580 960n
-preplace netloc net_gt_refclk_buf_ss_1_IBUFDSGT_ODIV2_OUT 1 6 1 2570 740n
-preplace netloc net_gt_refclk_buf_ss_1_IBUFDSGT_OUT 1 6 1 2550 720n
-preplace netloc net_gt_refclk_buf_ss_2_IBUFDSGT_ODIV2_OUT 1 6 1 2610 780n
-preplace netloc net_gt_refclk_buf_ss_2_IBUFDSGT_OUT 1 6 1 2590 760n
-preplace netloc net_hdmiphy_ss_0_rx_tmds_clk_n 1 7 1 NJ 870
-preplace netloc net_hdmiphy_ss_0_rx_tmds_clk_p 1 7 1 NJ 850
-preplace netloc net_hdmiphy_ss_0_rx_video_clk 1 4 4 1730 1170 NJ 1170 2620J 1080 3030
-preplace netloc net_hdmiphy_ss_0_tx_video_clk 1 4 4 1740 1070 2010 1040 NJ 1040 3040
-preplace netloc net_hdmiphy_ss_0_txoutclk 1 5 3 2090 1030 2450J 1050 3020
-preplace netloc net_rst_processor_1_100M_interconnect_aresetn 1 2 1 720 610n
-preplace netloc net_util_vector_logic_0_Res 1 1 1 NJ 1330
-preplace netloc net_v_fifo_dc_b_de_out 1 5 1 2040 920n
-preplace netloc net_v_hdmi_txss1_locked 1 6 2 2460J 1060 3040J
-preplace netloc net_vcc_const_dout 1 4 3 1720 1090 2080J 1020 2560
-preplace netloc net_vfmc_ctlr_ss_0_VFMC_RX_ONSEMI_ENABLE 1 7 1 NJ 1260
-preplace netloc ps_wizard_0_pl0_ref_clk 1 0 7 NJ 1390 330 590 740 480 1130J 490 NJ 490 2070 490 2520
-preplace netloc v_hdmi_txss1_irq 1 6 2 2470J 1070 NJ
-preplace netloc v_mix_0_interrupt 1 4 4 NJ 360 NJ 360 2560J 400 NJ
-preplace netloc Conn1 1 0 3 NJ 570 NJ 570 NJ
+preplace port TX_DDC_OUT -pg 1 -lvl 8 -x 3070 -y 1000 -defaultsOSRD
+preplace port HDMI_CTRL -pg 1 -lvl 8 -x 3070 -y 1520 -defaultsOSRD
+preplace port GT_Serial -pg 1 -lvl 8 -x 3070 -y 590 -defaultsOSRD
+preplace port GT_DRU_FRL_CLK_IN -pg 1 -lvl 0 -x 0 -y 620 -defaultsOSRD
+preplace port TX_REFCLK_P_IN_V -pg 1 -lvl 0 -x 0 -y 380 -defaultsOSRD
+preplace port HDMI_RX_CLK_P_IN_V -pg 1 -lvl 0 -x 0 -y 490 -defaultsOSRD
+preplace port S00_AXI -pg 1 -lvl 0 -x 0 -y 1230 -defaultsOSRD
+preplace port M00_INI -pg 1 -lvl 8 -x 3070 -y 70 -defaultsOSRD
+preplace port M01_INI -pg 1 -lvl 8 -x 3070 -y 90 -defaultsOSRD
+preplace port M02_INI -pg 1 -lvl 8 -x 3070 -y 110 -defaultsOSRD
+preplace port M03_INI -pg 1 -lvl 8 -x 3070 -y 130 -defaultsOSRD
+preplace port M04_INI -pg 1 -lvl 8 -x 3070 -y 150 -defaultsOSRD
+preplace port M05_INI -pg 1 -lvl 8 -x 3070 -y 170 -defaultsOSRD
+preplace port M06_INI -pg 1 -lvl 8 -x 3070 -y 190 -defaultsOSRD
+preplace port M07_INI -pg 1 -lvl 8 -x 3070 -y 210 -defaultsOSRD
+preplace port M08_INI -pg 1 -lvl 8 -x 3070 -y 230 -defaultsOSRD
+preplace port M09_INI -pg 1 -lvl 8 -x 3070 -y 250 -defaultsOSRD
+preplace port M10_INI -pg 1 -lvl 8 -x 3070 -y 270 -defaultsOSRD
+preplace port M11_INI -pg 1 -lvl 8 -x 3070 -y 290 -defaultsOSRD
+preplace port port-id_TX_HPD_IN -pg 1 -lvl 0 -x 0 -y 960 -defaultsOSRD
+preplace port port-id_LED0 -pg 1 -lvl 8 -x 3070 -y 1040 -defaultsOSRD
+preplace port port-id_IDT8T49N241_LOL_IN -pg 1 -lvl 0 -x 0 -y 550 -defaultsOSRD
+preplace port port-id_RX_REFCLK_P_OUT -pg 1 -lvl 8 -x 3070 -y 790 -defaultsOSRD
+preplace port port-id_RX_REFCLK_N_OUT -pg 1 -lvl 8 -x 3070 -y 810 -defaultsOSRD
+preplace port port-id_Timer_interrupt -pg 1 -lvl 8 -x 3070 -y 1400 -defaultsOSRD
+preplace port port-id_clk_in1 -pg 1 -lvl 0 -x 0 -y 1360 -defaultsOSRD
+preplace port port-id_hdmi_txss_irq -pg 1 -lvl 8 -x 3070 -y 1020 -defaultsOSRD
+preplace port port-id_hdmi_gt_irq -pg 1 -lvl 8 -x 3070 -y 890 -defaultsOSRD
+preplace port port-id_iic2intc_irpt -pg 1 -lvl 8 -x 3070 -y 1540 -defaultsOSRD
+preplace port port-id_Mixer_irq -pg 1 -lvl 8 -x 3070 -y 360 -defaultsOSRD
+preplace portBus TX_TI_ENABLE -pg 1 -lvl 8 -x 3070 -y 1210 -defaultsOSRD
+preplace portBus Op1 -pg 1 -lvl 0 -x 0 -y 1380 -defaultsOSRD
+preplace inst rst_processor_1_300M -pg 1 -lvl 3 -x 930 -y 1060 -defaultsOSRD
+preplace inst tx_video_axis_reg_slice -pg 1 -lvl 5 -x 1860 -y 770 -defaultsOSRD
+preplace inst ilslice_5 -pg 1 -lvl 3 -x 930 -y 240 -defaultsOSRD
+preplace inst v_hdmi_txss1 -pg 1 -lvl 6 -x 2280 -y 980 -defaultsOSRD
+preplace inst ilconstant_1 -pg 1 -lvl 3 -x 930 -y 140 -defaultsOSRD
+preplace inst rst_processor_1_100M -pg 1 -lvl 2 -x 520 -y 1490 -defaultsOSRD
+preplace inst vcc_const -pg 1 -lvl 4 -x 1410 -y 830 -defaultsOSRD
+preplace inst clkx_wiz_0 -pg 1 -lvl 2 -x 520 -y 1310 -defaultsOSRD
+preplace inst axi_noc2_0 -pg 1 -lvl 7 -x 2810 -y 180 -defaultsOSRD
+preplace inst util_vector_logic_0 -pg 1 -lvl 1 -x 170 -y 1300 -defaultsOSRD
+preplace inst axi_gpio -pg 1 -lvl 4 -x 1410 -y 1080 -defaultsOSRD
+preplace inst v_mix_0 -pg 1 -lvl 4 -x 1410 -y 190 -defaultsOSRD
+preplace inst v_fifo_dc -pg 1 -lvl 5 -x 1860 -y 1000 -defaultsOSRD
+preplace inst axi_smartconnect_0 -pg 1 -lvl 3 -x 930 -y 1260 -defaultsOSRD
+preplace inst axi_iic_0 -pg 1 -lvl 7 -x 2810 -y 1540 -defaultsOSRD
+preplace inst hdmiphy_ss_0 -pg 1 -lvl 7 -x 2810 -y 740 -defaultsOSRD
+preplace inst gt_refclk_buf_ss_0 -pg 1 -lvl 6 -x 2280 -y 620 -defaultsOSRD
+preplace inst gt_refclk_buf_ss_1 -pg 1 -lvl 6 -x 2280 -y 380 -defaultsOSRD
+preplace inst gt_refclk_buf_ss_2 -pg 1 -lvl 6 -x 2280 -y 490 -defaultsOSRD
+preplace inst vfmc_ctlr_ss_0 -pg 1 -lvl 7 -x 2810 -y 1150 -defaultsOSRD
+preplace inst axi_timer_0 -pg 1 -lvl 7 -x 2810 -y 1370 -defaultsOSRD
+preplace inst ilconstant_0 -pg 1 -lvl 5 -x 1860 -y 1160 -defaultsOSRD
+preplace netloc Net 1 0 2 20 1380 330
+preplace netloc axi_gpio_gpio_io_o 1 2 3 750 910 NJ 910 1650
+preplace netloc axi_iic_0_iic2intc_irpt 1 7 1 NJ 1540
+preplace netloc axi_timer_0_interrupt 1 7 1 NJ 1400
+preplace netloc hdmiphy_ss_0_irq 1 7 1 NJ 890
+preplace netloc ilconstant_0_dout 1 5 1 2000 940n
+preplace netloc ilconstant_1_dout 1 3 1 1110 140n
+preplace netloc ilslice_5_Dout 1 3 1 NJ 240
+preplace netloc net_bdry_in_IDT8T49N241_LOL_IN 1 0 7 20J 690 NJ 690 NJ 690 NJ 690 NJ 690 NJ 690 2510J
+preplace netloc net_bdry_in_TX_HPD_IN 1 0 6 20J 890 NJ 890 NJ 890 NJ 890 1680J 860 2040J
+preplace netloc net_cips_ss_0_clk_out2 1 2 5 730 960 1160 700 1700 670 2070 300 N
+preplace netloc net_cips_ss_0_dcm_locked 1 3 3 1170 1000 1690 850 2030
+preplace netloc net_cips_ss_0_frl_clk 1 2 4 700J 900 NJ 900 1710J 880 2020
+preplace netloc net_cips_ss_0_peripheral_aresetn 1 2 5 NJ 1530 1160J 1300 NJ 1300 2060 1290 2590
+preplace netloc net_clkx_wiz_0_locked 1 2 1 720 1040n
+preplace netloc net_gt_refclk_buf_ss_0_IBUFDSGT_ODIV2_OUT 1 6 1 2490 630n
+preplace netloc net_gt_refclk_buf_ss_0_IBUFDSGT_OUT 1 6 1 2520 610n
+preplace netloc net_gt_refclk_buf_ss_1_IBUFDSGT_ODIV2_OUT 1 6 1 2590 390n
+preplace netloc net_gt_refclk_buf_ss_1_IBUFDSGT_OUT 1 6 1 2610 370n
+preplace netloc net_gt_refclk_buf_ss_2_IBUFDSGT_ODIV2_OUT 1 6 1 2540 500n
+preplace netloc net_gt_refclk_buf_ss_2_IBUFDSGT_OUT 1 6 1 2580 480n
+preplace netloc net_hdmiphy_ss_0_rx_tmds_clk_n 1 7 1 NJ 810
+preplace netloc net_hdmiphy_ss_0_rx_tmds_clk_p 1 7 1 NJ 790
+preplace netloc net_hdmiphy_ss_0_rx_video_clk 1 4 4 1730 1270 NJ 1270 2610J 1010 3030
+preplace netloc net_hdmiphy_ss_0_tx_video_clk 1 4 4 1720 870 1990 1230 2560J 990 3020
+preplace netloc net_hdmiphy_ss_0_txoutclk 1 5 3 2100 1240 2550J 980 3010
+preplace netloc net_rst_processor_1_100M_interconnect_aresetn 1 2 1 750 1290n
+preplace netloc net_util_vector_logic_0_Res 1 1 1 NJ 1300
+preplace netloc net_v_fifo_dc_b_de_out 1 5 1 2010 990n
+preplace netloc net_v_hdmi_txss1_locked 1 6 2 2570J 1030 3050J
+preplace netloc net_vcc_const_dout 1 4 3 1670 1250 NJ 1250 2540
+preplace netloc net_vfmc_ctlr_ss_0_VFMC_RX_ONSEMI_ENABLE 1 7 1 NJ 1210
+preplace netloc ps_wizard_0_pl0_ref_clk 1 0 7 NJ 1360 340 1390 740 1380 1170J 1310 NJ 1310 2050 1310 2580
+preplace netloc v_hdmi_txss1_irq 1 6 2 NJ 1020 NJ
+preplace netloc v_mix_0_interrupt 1 4 4 1660J 310 NJ 310 2610J 360 NJ
+preplace netloc Conn1 1 0 3 NJ 1230 NJ 1230 NJ
 preplace netloc Conn2 1 7 1 NJ 70
 preplace netloc Conn3 1 7 1 NJ 90
 preplace netloc Conn4 1 7 1 NJ 110
@@ -1530,32 +1496,32 @@ preplace netloc Conn7 1 7 1 NJ 230
 preplace netloc Conn8 1 7 1 NJ 250
 preplace netloc Conn9 1 7 1 NJ 270
 preplace netloc Conn10 1 7 1 NJ 290
-preplace netloc Conn11 1 7 1 NJ 310
-preplace netloc Conn12 1 7 1 NJ 330
 preplace netloc axi_noc2_0_M04_INI 1 7 1 NJ 150
 preplace netloc axi_noc2_0_M05_INI 1 7 1 NJ 170
 preplace netloc axi_noc2_0_M06_INI 1 7 1 NJ 190
-preplace netloc axi_smartconnect_0_M01_AXI 1 3 4 1170 520 NJ 520 NJ 520 2490J
-preplace netloc axi_smartconnect_0_M03_AXI 1 3 4 1160 460 NJ 460 NJ 460 NJ
-preplace netloc axi_smartconnect_0_M05_AXI 1 3 1 1170 620n
-preplace netloc intf_net_bdry_in_GT_DRU_FRL_CLK_IN 1 0 6 NJ 1110 NJ 1110 NJ 1110 NJ 1110 NJ 1110 NJ
-preplace netloc intf_net_bdry_in_HDMI_RX_CLK_P_IN_V 1 0 6 NJ 1600 NJ 1600 NJ 1600 NJ 1600 NJ 1600 NJ
-preplace netloc intf_net_bdry_in_TX_REFCLK_P_IN_V 1 0 6 NJ 1250 NJ 1250 NJ 1250 NJ 1250 NJ 1250 NJ
-preplace netloc intf_net_cips_ss_0_IIC 1 7 1 NJ 460
-preplace netloc intf_net_cips_ss_0_M00_AXI 1 3 4 NJ 540 NJ 540 2010J 530 2550
-preplace netloc intf_net_cips_ss_0_M02_AXI 1 3 3 1180J 560 NJ 560 2060
-preplace netloc intf_net_hdmiphy_ss_0_phy_data 1 7 1 NJ 650
-preplace netloc intf_net_hdmiphy_ss_0_vid_phy_status_sb_tx 1 5 3 2090 540 2540J 560 3020
-preplace netloc intf_net_tx_video_axis_reg_slice_M_AXIS 1 5 1 2010 640n
-preplace netloc intf_net_v_hdmi_txss1_DDC_OUT 1 6 2 2510J 1030 NJ
-preplace netloc intf_net_v_hdmi_txss1_LINK_DATA0_OUT 1 6 1 2450 620n
-preplace netloc intf_net_v_hdmi_txss1_LINK_DATA1_OUT 1 6 1 2460 640n
-preplace netloc intf_net_v_hdmi_txss1_LINK_DATA2_OUT 1 6 1 2470 660n
-preplace netloc intf_net_v_hdmi_txss1_LINK_DATA3_OUT 1 6 1 2480 680n
-preplace netloc v_mix_0_m_axi_mm_video1 1 4 3 N 60 NJ 60 2490J
+preplace netloc axi_smartconnect_0_M01_AXI 1 3 4 NJ 1220 NJ 1220 NJ 1220 2600
+preplace netloc axi_smartconnect_0_M03_AXI 1 3 4 1130J 1280 NJ 1280 NJ 1280 2460
+preplace netloc axi_smartconnect_0_M04_AXI 1 3 1 1120 140n
+preplace netloc axi_smartconnect_0_M05_AXI 1 3 1 1150 1060n
+preplace netloc axi_smartconnect_0_M06_AXI 1 3 4 NJ 1320 NJ 1320 NJ 1320 N
+preplace netloc intf_net_bdry_in_GT_DRU_FRL_CLK_IN 1 0 6 NJ 620 NJ 620 NJ 620 NJ 620 NJ 620 NJ
+preplace netloc intf_net_bdry_in_HDMI_RX_CLK_P_IN_V 1 0 6 NJ 490 NJ 490 NJ 490 NJ 490 NJ 490 NJ
+preplace netloc intf_net_bdry_in_TX_REFCLK_P_IN_V 1 0 6 NJ 380 NJ 380 NJ 380 NJ 380 NJ 380 NJ
+preplace netloc intf_net_cips_ss_0_IIC 1 7 1 NJ 1520
+preplace netloc intf_net_cips_ss_0_M00_AXI 1 3 4 1130 660 NJ 660 2100J 680 2480J
+preplace netloc intf_net_cips_ss_0_M02_AXI 1 3 3 1140J 680 NJ 680 2090
+preplace netloc intf_net_hdmiphy_ss_0_phy_data 1 7 1 NJ 590
+preplace netloc intf_net_hdmiphy_ss_0_vid_phy_status_sb_tx 1 5 3 2090 1260 NJ 1260 3040
+preplace netloc intf_net_tx_video_axis_reg_slice_M_AXIS 1 5 1 2080 770n
+preplace netloc intf_net_v_hdmi_txss1_DDC_OUT 1 6 2 NJ 1000 NJ
+preplace netloc intf_net_v_hdmi_txss1_LINK_DATA0_OUT 1 6 1 2460 560n
+preplace netloc intf_net_v_hdmi_txss1_LINK_DATA1_OUT 1 6 1 2470 580n
+preplace netloc intf_net_v_hdmi_txss1_LINK_DATA2_OUT 1 6 1 2500 600n
+preplace netloc intf_net_v_hdmi_txss1_LINK_DATA3_OUT 1 6 1 2530 620n
+preplace netloc v_mix_0_m_axi_mm_video1 1 4 3 N 60 NJ 60 2590J
 preplace netloc v_mix_0_m_axi_mm_video2 1 4 3 1710 100 NJ 100 NJ
-preplace netloc v_mix_0_m_axi_mm_video3 1 4 3 1700 120 NJ 120 NJ
-preplace netloc v_mix_0_m_axi_mm_video4 1 4 3 1690 70 NJ 70 2560J
+preplace netloc v_mix_0_m_axi_mm_video3 1 4 3 1690 120 NJ 120 NJ
+preplace netloc v_mix_0_m_axi_mm_video4 1 4 3 1670 70 NJ 70 2610J
 preplace netloc v_mix_0_m_axi_mm_video5 1 4 3 N 140 NJ 140 NJ
 preplace netloc v_mix_0_m_axi_mm_video6 1 4 3 N 160 NJ 160 NJ
 preplace netloc v_mix_0_m_axi_mm_video7 1 4 3 N 180 NJ 180 NJ
@@ -1564,13 +1530,9 @@ preplace netloc v_mix_0_m_axi_mm_video9 1 4 3 N 220 NJ 220 NJ
 preplace netloc v_mix_0_m_axi_mm_video10 1 4 3 N 240 NJ 240 NJ
 preplace netloc v_mix_0_m_axi_mm_video11 1 4 3 N 260 NJ 260 NJ
 preplace netloc v_mix_0_m_axi_mm_video12 1 4 3 N 280 NJ 280 NJ
-preplace netloc v_mix_0_m_axi_mm_video13 1 4 3 N 300 NJ 300 NJ
-preplace netloc v_mix_0_m_axi_mm_video14 1 4 3 N 320 NJ 320 NJ
-preplace netloc v_mix_0_m_axis_video 1 4 1 1710 340n
-preplace netloc axi_smartconnect_0_M04_AXI 1 3 1 1120 160n
-preplace netloc axi_smartconnect_0_M06_AXI 1 3 4 1200J 500 NJ 500 NJ 500 2500
-levelinfo -pg 1 0 170 520 930 1450 1880 2270 2820 3060
-pagesize -pg 1 -db -bbox -sgen -210 0 3250 1660
+preplace netloc v_mix_0_m_axis_video 1 4 1 1670 300n
+levelinfo -pg 1 0 170 520 930 1410 1860 2280 2810 3070
+pagesize -pg 1 -db -bbox -sgen -210 0 3260 1620
 "
 }
 

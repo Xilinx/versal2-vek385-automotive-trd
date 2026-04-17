@@ -1,16 +1,27 @@
+From f87050dafef3022a3f95f8518c6defa88d9fb3de Mon Sep 17 00:00:00 2001
+From: cchaduvu <chandrasekhar.chaduvula@amd.com>
+Date: Fri, 17 Apr 2026 16:49:07 +0530
+Subject: [PATCH 2/2] max96716: update nDes6 init for 12-bit 8MP sensor VCID
+ support
+
+- Enable 12-bit data path configuration for 8MP sensors
+- Update CSI/PHY register settings for 12-bit output
+- Correct VC-ID programming for multi-stream 8MP use case
+- Align Link-A and Link-B register settings for consistent VC handling
+- Remove legacy and unused VC/format register programming
+
+This change adds proper 12-bit and VC-ID support for
+8MP sensors on the MAX96716-based FMC design.
+
+Signed-off-by: cchaduvu <chandrasekhar.chaduvula@amd.com>
+---
+ .../src/usr_sensor/include/fmc/max96716.h     | 64 +++++++------------
+ 1 file changed, 24 insertions(+), 40 deletions(-)
+
 diff --git a/sensor_drivers/src/usr_sensor/include/fmc/max96716.h b/sensor_drivers/src/usr_sensor/include/fmc/max96716.h
-index 5b27c3b..0a7326c 100755
+index a0e8c9f..0a7326c 100755
 --- a/sensor_drivers/src/usr_sensor/include/fmc/max96716.h
 +++ b/sensor_drivers/src/usr_sensor/include/fmc/max96716.h
-@@ -319,7 +319,7 @@ RegI2CT nDes4_init[] = {
- RegI2CT nDes5_init[] = {
- 	{MAX929X_TABLE_WAIT, MAX929X_TABLE_WAIT_MS},
- 	{0x0161, 0x31},
--	{0x0320, 0x37},   //0x2f for 1500
-+	{0x0320, 0x2f},   //0x2f for 1500
- 	{0x0323, 0x2f},
- 	{0x0316, 0x80},
- 	{0x0317, 0xBC},
 @@ -365,52 +365,36 @@ RegI2CT nDes5_init[] = {
  RegI2CT nDes6_init[] = {
  	{MAX929X_TABLE_WAIT, MAX929X_TABLE_WAIT_MS},
@@ -88,3 +99,6 @@ index 5b27c3b..0a7326c 100755
  	{MAX929X_TABLE_WAIT, MAX929X_TABLE_WAIT_MS},
  	{MAX929X_TABLE_END, 0}
  };
+-- 
+2.43.0
+

@@ -1,8 +1,8 @@
-From 995225c331b8762dcee385ebe1ac81d4de3d97df Mon Sep 17 00:00:00 2001
+From 156eeb9f0e7dd24d3de95c47d0e291d3356ace65 Mon Sep 17 00:00:00 2001
 From: Yash <Yash.RameshbhaiSuthar@amd.com>
 Date: Mon, 13 Apr 2026 16:29:01 +0530
-Subject: [PATCH] SENSOR_LIB: Add multi-I2C bus support, MAX96716 deserializer,
- and AE M17 backport
+Subject: [PATCH 1/2] SENSOR_LIB: Add multi-I2C bus support, MAX96716
+ deserializer, and AE M17 backport
 
 Add support for multiple I2C bus controllers, new MAX96716 deserializer,
 and backport AE/AWB enhancements from M17 release for the 12-sensor
@@ -640,7 +640,7 @@ index 811c23e..e393034 100755
  #endif
 diff --git a/sensor_drivers/src/usr_sensor/include/fmc/max96716.h b/sensor_drivers/src/usr_sensor/include/fmc/max96716.h
 new file mode 100755
-index 0000000..5b27c3b
+index 0000000..a0e8c9f
 --- /dev/null
 +++ b/sensor_drivers/src/usr_sensor/include/fmc/max96716.h
 @@ -0,0 +1,524 @@
@@ -965,7 +965,7 @@ index 0000000..5b27c3b
 +RegI2CT nDes5_init[] = {
 +	{MAX929X_TABLE_WAIT, MAX929X_TABLE_WAIT_MS},
 +	{0x0161, 0x31},
-+	{0x0320, 0x37},   //0x2f for 1500
++	{0x0320, 0x2f},   //0x2f for 1500
 +	{0x0323, 0x2f},
 +	{0x0316, 0x80},
 +	{0x0317, 0xBC},

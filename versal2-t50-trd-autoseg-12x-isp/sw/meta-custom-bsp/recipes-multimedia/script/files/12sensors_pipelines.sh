@@ -5,11 +5,6 @@
 #!/bin/bash
 
 # Step 1: TFTP file transfer
-tftp <<EOF
-connect 10.10.70.101
-get pl_overlay.zip
-quit
-EOF
 
 
 # Step 2: Move kernel module

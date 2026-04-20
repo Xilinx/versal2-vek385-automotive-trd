@@ -253,6 +253,8 @@ close $fd
 # Generate all output products
 set_property strategy Performance_Explore [get_runs impl_1]
 set_property NOC_SOLUTION_FILE {} [get_runs impl_1]
+set_msg_config -suppress -id {Ipconfig 75-4216} -string {{CRITICAL WARNING: [Ipconfig 75-4216] A NoC solution that meets the requested bandwidths could not be found. The following solution relaxes bandwidth requirements.} }
+
 # Run Implementation
 launch_runs impl_1 -to_step write_device_image -jobs 32
 wait_on_run impl_1

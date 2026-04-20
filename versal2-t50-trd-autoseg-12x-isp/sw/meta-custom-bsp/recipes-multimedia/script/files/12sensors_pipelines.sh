@@ -4,10 +4,8 @@
 
 #!/bin/bash
 
-# Step 1: TFTP file transfer
 
-
-# Step 2: Move kernel module
+# Step 1: Move kernel module
 mv /lib/modules/6.12.40-xilinx-g31626ef92ff1/updates/visp_mbox/visp_mbox.ko /usr/share/
 mv /lib/modules/6.12.40-xilinx-g31626ef92ff1/updates/visp/visp.ko  /usr/share/
 mv /lib/modules/6.12.40-xilinx-g31626ef92ff1/updates/visp_video/visp_video.ko  /usr/share/
@@ -19,7 +17,7 @@ cp -rf  pl_overlay /lib/firmware/xilinx
 dfx-mgr-client -load pl_overlay
 
 sleep 5
-# Step 3: Load RPU firmware
+# Step 2: Load RPU firmware
 
 echo isp-r52-6-firmware.elf  > /sys/class/remoteproc/remoteproc1/firmware
 echo start > /sys/class/remoteproc/remoteproc1/state
@@ -31,7 +29,7 @@ echo isp-r52-8-firmware.elf  > /sys/class/remoteproc/remoteproc3/firmware
 echo start > /sys/class/remoteproc/remoteproc3/state
 sleep 2
 
-# Step 5: Insert kernel module
+# Step 3: Insert kernel module
 insmod /usr/share/visp_mbox.ko
 insmod /usr/share/visp.ko
 insmod /usr/share/visp_video.ko

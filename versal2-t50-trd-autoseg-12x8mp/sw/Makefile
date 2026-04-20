@@ -72,41 +72,38 @@ COLOR_CYAN := \033[36m
 
 
 help:
-	@echo 'Usage:'
-	@echo '
-	@echo '  make'
-    	@echo '    Show this help message.'
-    	@echo ''
-    	@echo '  make all'
-    	@echo '    Build OSPI and RootFS images.'
-    	@echo ''
-    	@echo '  make setup'
-    	@echo '    Download repo tool and prepare the build environment.'
-    	@echo ''
-    	@echo '  make sync'
-    	@echo '    Initialize and sync Yocto repositories.'
-    	@echo ''
-    	@echo '  make configure'
-    	@echo '    Configure Yocto build environment.'
-    	@echo ''
-    	@echo '  make gen-machine'
-    	@echo '    Generate machine configuration from SDT.'
-    	@echo ''
-    	@echo '  make build-ospi'
-    	@echo '    Build OSPI boot image.'
-    	@echo ''
-    	@echo '  make build-rootfs'
-    	@echo '    Build Linux kernel and root filesystem.'
-    	@echo ''
-    	@echo '  make artifacts'
-    	@echo '    Copy generated images to local artifacts directory.'
-    	@echo ''
-    	@echo '  make clean-machineconf'
-    	@echo '    Remove generated machine configuration files.'
-    	@echo ''
-    	@echo '  make clean'
-    	@echo '    Clean build outputs (keep sources/.repo).'
-    	@echo ''
+	@echo "Usage:"
+	@echo ""
+	@echo "  make help"
+	@echo "    Show this help message"
+	@echo ""
+	@echo "  make all"
+	@echo "    Build OSPI and RootFS images"
+	@echo ""
+	@echo "  make setup"
+	@echo "    Download repo tool and prepare the build environment"
+	@echo ""
+	@echo "  make sync"
+	@echo "    Initialize and sync Yocto repositories"
+	@echo ""
+	@echo "  make configure"
+	@echo "    Configure Yocto build environment"
+	@echo ""
+	@echo "  make gen-machine"
+	@echo "    Generate machine configuration from SDT"
+	@echo ""
+	@echo "  make build-ospi"
+	@echo "    Build OSPI boot image"
+	@echo ""
+	@echo "  make build-rootfs"
+	@echo "    Build Linux kernel and root filesystem"
+	@echo ""
+	@echo "  make artifacts"
+	@echo "    Copy generated images to local artifacts directory"
+	@echo ""
+	@echo "  make clean"
+	@echo "    Clean build outputs"
+	``
 
 #===============================================================================
 # Default Target
@@ -189,6 +186,9 @@ configure: sync
 		echo "Sourcing edf-init-build-env and configuring local.conf..."; \
 		cd $(YOCTO_DIR); \
 		source edf-init-build-env; \
+		cp -rf ../../meta-custom-bsp ../sources/.;\
+	        bitbake-layers add-layer ../sources/meta-custom-bsp;\
+		echo "meta-custom-bsp layer added successfully"; \
 		if [ '$(IS_NFS)' = 'yes' ]; then \
 			if ! grep -q '^TMPDIR = ' conf/local.conf 2>/dev/null; then \
 				echo 'TMPDIR = "$(YOCTO_TMP_DIR)"' >> conf/local.conf; \
@@ -272,7 +272,6 @@ build-ospi: gen-machine
 	@echo ""
 	@cd $(YOCTO_DIR) && \
 		bash -c "source edf-init-build-env && \
-		bitbake-layers add-layer $(current_dir)/meta-custom-bsp \
 		MACHINE=$(MACHINE) bitbake $(IMAGE_OSPI)" || { \
 		printf "%b\n" "$(COLOR_YELLOW)Error: OSPI image build failed$(COLOR_RESET)"; \
 		exit 1; \

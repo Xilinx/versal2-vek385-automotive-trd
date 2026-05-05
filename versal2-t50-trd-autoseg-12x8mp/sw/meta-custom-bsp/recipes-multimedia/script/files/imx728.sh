@@ -110,45 +110,45 @@ sleep 3
 if [[ "${MODE}" == "12x8mp" ]]; then
   echo "[INFO] Launching 12x 8MP streams in 4x3 grid on 8K HDMI (tiles 1920x1440)"
 
-  gst-launch-1.0  -v v4l2src device=/dev/video0  io-mode=4  ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=20/1" ! queue ! perf name=ISP0_MP_port0 !  kmssink bus-id=b0040000.v_mix  plane-id=35 render-rectangle="<0,0, 1920, 1440>" &
+  gst-launch-1.0  -v v4l2src device=/dev/video0  io-mode=4  ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=15/1" ! queue ! perf name=ISP0_MP_port0 !  kmssink bus-id=b0040000.v_mix  plane-id=35 render-rectangle="<0,0, 1920, 1440>" &
   sleep 40
-  gst-launch-1.0  -v v4l2src device=/dev/video2  io-mode=4  ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=20/1" ! queue ! perf name=ISP0_MP_port1 !  kmssink bus-id=b0040000.v_mix  plane-id=37 render-rectangle="<1920, 0, 1920, 1440>" &
+  gst-launch-1.0  -v v4l2src device=/dev/video2  io-mode=4  ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=15/1" ! queue ! perf name=ISP0_MP_port1 !  kmssink bus-id=b0040000.v_mix  plane-id=37 render-rectangle="<1920, 0, 1920, 1440>" &
   sleep 20
-  gst-launch-1.0  -v v4l2src device=/dev/video4  io-mode=4  ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=20/1" ! queue ! perf name=ISP1_MP_port0 !  kmssink bus-id=b0040000.v_mix  plane-id=39 render-rectangle="<3840, 0, 1920, 1440>" &
+  gst-launch-1.0  -v v4l2src device=/dev/video4  io-mode=4  ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=15/1" ! queue ! perf name=ISP1_MP_port0 !  kmssink bus-id=b0040000.v_mix  plane-id=39 render-rectangle="<3840, 0, 1920, 1440>" &
   sleep 20
-  gst-launch-1.0  -v v4l2src device=/dev/video6  io-mode=4  ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=20/1" ! queue ! perf name=ISP1_MP_port1 !  kmssink bus-id=b0040000.v_mix  plane-id=41 render-rectangle="<5760, 0, 1920, 1440>" &
+  gst-launch-1.0  -v v4l2src device=/dev/video6  io-mode=4  ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=15/1" ! queue ! perf name=ISP1_MP_port1 !  kmssink bus-id=b0040000.v_mix  plane-id=41 render-rectangle="<5760, 0, 1920, 1440>" &
   sleep 20
-  gst-launch-1.0 -v v4l2src device=/dev/video8  io-mode=4 ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=20/1" ! queue ! perf name=ISP2_MP_port0 ! kmssink bus-id=b0040000.v_mix plane-id=43 render-rectangle="<0,1440,1920, 1440>" &
+  gst-launch-1.0 -v v4l2src device=/dev/video8  io-mode=4 ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=15/1" ! queue ! perf name=ISP2_MP_port0 ! kmssink bus-id=b0040000.v_mix plane-id=43 render-rectangle="<0,1440,1920, 1440>" &
   sleep 30
-  gst-launch-1.0 -v v4l2src device=/dev/video10 io-mode=4 ! "video/x-raw, width=3840, height=2160,format=RGB,framerate=20/1" ! queue ! perf name=ISP2_MP_port1 ! kmssink bus-id=b0040000.v_mix plane-id=45 render-rectangle="<1920, 1440, 1920, 1440>" &
+  gst-launch-1.0 -v v4l2src device=/dev/video10 io-mode=4 ! "video/x-raw, width=3840, height=2160,format=RGB,framerate=15/1" ! queue ! perf name=ISP2_MP_port1 ! kmssink bus-id=b0040000.v_mix plane-id=45 render-rectangle="<1920, 1440, 1920, 1440>" &
   sleep 20
-  gst-launch-1.0 -v v4l2src device=/dev/video12 io-mode=4 ! "video/x-raw, width=3840, height=2160,format=RGB,framerate=20/1" ! queue ! perf name=ISP3_MP_port0 ! kmssink bus-id=b0040000.v_mix plane-id=47 render-rectangle="<3840, 1440, 1920, 1440>" &
+  gst-launch-1.0 -v v4l2src device=/dev/video12 io-mode=4 ! "video/x-raw, width=3840, height=2160,format=RGB,framerate=15/1" ! queue ! perf name=ISP3_MP_port0 ! kmssink bus-id=b0040000.v_mix plane-id=47 render-rectangle="<3840, 1440, 1920, 1440>" &
   sleep 20
-  gst-launch-1.0 -v v4l2src device=/dev/video14 io-mode=4 ! "video/x-raw, width=3840, height=2160,format=RGB,framerate=20/1" ! queue ! perf name=ISP3_MP_port1 ! kmssink bus-id=b0040000.v_mix plane-id=49 render-rectangle="<5760, 1440, 1920, 1440>" &
+  gst-launch-1.0 -v v4l2src device=/dev/video14 io-mode=4 ! "video/x-raw, width=3840, height=2160,format=RGB,framerate=15/1" ! queue ! perf name=ISP3_MP_port1 ! kmssink bus-id=b0040000.v_mix plane-id=49 render-rectangle="<5760, 1440, 1920, 1440>" &
   sleep 20
-  gst-launch-1.0 -v v4l2src device=/dev/video16 io-mode=4 ! "video/x-raw, width=3840, height=2160,format=RGB,framerate=20/1" ! queue ! perf name=ISP4_MP_port0 ! kmssink bus-id=b0040000.v_mix plane-id=51 render-rectangle="<0, 2880, 1920, 1440>" &
+  gst-launch-1.0 -v v4l2src device=/dev/video16 io-mode=4 ! "video/x-raw, width=3840, height=2160,format=RGB,framerate=15/1" ! queue ! perf name=ISP4_MP_port0 ! kmssink bus-id=b0040000.v_mix plane-id=51 render-rectangle="<0, 2880, 1920, 1440>" &
   sleep 40
-  gst-launch-1.0 -v v4l2src device=/dev/video18 io-mode=4 ! "video/x-raw, width=3840, height=2160,format=RGB,framerate=20/1" ! queue ! perf name=ISP4_MP_port1 ! kmssink bus-id=b0040000.v_mix plane-id=53 render-rectangle="<1920, 2880, 1920, 1440>" &
+  gst-launch-1.0 -v v4l2src device=/dev/video18 io-mode=4 ! "video/x-raw, width=3840, height=2160,format=RGB,framerate=15/1" ! queue ! perf name=ISP4_MP_port1 ! kmssink bus-id=b0040000.v_mix plane-id=53 render-rectangle="<1920, 2880, 1920, 1440>" &
   sleep 20
-  gst-launch-1.0 -v v4l2src device=/dev/video20 io-mode=4 ! "video/x-raw, width=3840, height=2160,format=RGB,framerate=20/1" ! queue ! perf name=ISP5_MP_port0 ! kmssink bus-id=b0040000.v_mix plane-id=55 render-rectangle="<3840, 2880, 1920, 1440>" &
+  gst-launch-1.0 -v v4l2src device=/dev/video20 io-mode=4 ! "video/x-raw, width=3840, height=2160,format=RGB,framerate=15/1" ! queue ! perf name=ISP5_MP_port0 ! kmssink bus-id=b0040000.v_mix plane-id=55 render-rectangle="<3840, 2880, 1920, 1440>" &
   sleep 20
-  gst-launch-1.0 -v v4l2src device=/dev/video22 io-mode=4 ! "video/x-raw, width=3840, height=2160,format=RGB,framerate=20/1" ! queue ! perf name=ISP5_MP_port1 ! kmssink bus-id=b0040000.v_mix plane-id=57 render-rectangle="<5760, 2880, 1920, 1440>" &
+  gst-launch-1.0 -v v4l2src device=/dev/video22 io-mode=4 ! "video/x-raw, width=3840, height=2160,format=RGB,framerate=15/1" ! queue ! perf name=ISP5_MP_port1 ! kmssink bus-id=b0040000.v_mix plane-id=57 render-rectangle="<5760, 2880, 1920, 1440>" &
 
 else
   echo "[INFO] Launching 6x 8MP streams on 8K HDMI in 3x2 grid"
   echo "[INFO] Input: 3840x2160  ->  Display tiles: 2560x2160"
 
-  gst-launch-1.0  -v v4l2src device=/dev/video0  io-mode=4  ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=20/1" ! queue ! perf name=ISP0_MP_port0 !  kmssink bus-id=b0040000.v_mix  plane-id=35 render-rectangle="<0, 0, 2560, 2160>" &
+  gst-launch-1.0  -v v4l2src device=/dev/video0  io-mode=4  ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=15/1" ! queue ! perf name=ISP0_MP_port0 !  kmssink bus-id=b0040000.v_mix  plane-id=35 render-rectangle="<0, 0, 2560, 2160>" &
   sleep 40
-  gst-launch-1.0  -v v4l2src device=/dev/video2  io-mode=4  ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=20/1" ! queue ! perf name=ISP0_MP_port1 !  kmssink bus-id=b0040000.v_mix  plane-id=37 render-rectangle="<2560, 0, 2560, 2160>" &
+  gst-launch-1.0  -v v4l2src device=/dev/video2  io-mode=4  ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=15/1" ! queue ! perf name=ISP0_MP_port1 !  kmssink bus-id=b0040000.v_mix  plane-id=37 render-rectangle="<2560, 0, 2560, 2160>" &
   sleep 20
-  gst-launch-1.0  -v v4l2src device=/dev/video4  io-mode=4  ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=20/1" ! queue ! perf name=ISP1_MP_port0 !  kmssink bus-id=b0040000.v_mix  plane-id=39 render-rectangle="<5120, 0, 2560, 2160>" &
+  gst-launch-1.0  -v v4l2src device=/dev/video4  io-mode=4  ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=15/1" ! queue ! perf name=ISP1_MP_port0 !  kmssink bus-id=b0040000.v_mix  plane-id=39 render-rectangle="<5120, 0, 2560, 2160>" &
   sleep 20
-  gst-launch-1.0  -v v4l2src device=/dev/video6  io-mode=4  ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=20/1" ! queue ! perf name=ISP1_MP_port1 !  kmssink bus-id=b0040000.v_mix  plane-id=41 render-rectangle="<0, 2160, 2560, 2160>" &
+  gst-launch-1.0  -v v4l2src device=/dev/video6  io-mode=4  ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=15/1" ! queue ! perf name=ISP1_MP_port1 !  kmssink bus-id=b0040000.v_mix  plane-id=41 render-rectangle="<0, 2160, 2560, 2160>" &
   sleep 20
-  gst-launch-1.0 -v v4l2src device=/dev/video8  io-mode=4 ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=20/1" ! queue ! perf name=ISP2_MP_port0 ! kmssink bus-id=b0040000.v_mix plane-id=43 render-rectangle="<2560, 2160, 2560, 2160>" &
+  gst-launch-1.0 -v v4l2src device=/dev/video8  io-mode=4 ! "video/x-raw, width=3840, height=2160, format=RGB, framerate=15/1" ! queue ! perf name=ISP2_MP_port0 ! kmssink bus-id=b0040000.v_mix plane-id=43 render-rectangle="<2560, 2160, 2560, 2160>" &
   sleep 20
-  gst-launch-1.0 -v v4l2src device=/dev/video10 io-mode=4 ! "video/x-raw, width=3840, height=2160,format=RGB,framerate=20/1" ! queue ! perf name=ISP2_MP_port1 ! kmssink bus-id=b0040000.v_mix plane-id=45 render-rectangle="<5120, 2160, 2560, 2160>" &
+  gst-launch-1.0 -v v4l2src device=/dev/video10 io-mode=4 ! "video/x-raw, width=3840, height=2160,format=RGB,framerate=15/1" ! queue ! perf name=ISP2_MP_port1 ! kmssink bus-id=b0040000.v_mix plane-id=45 render-rectangle="<5120, 2160, 2560, 2160>" &
   sleep 20
 fi
 

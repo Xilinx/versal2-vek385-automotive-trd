@@ -1,4 +1,4 @@
-From f87050dafef3022a3f95f8518c6defa88d9fb3de Mon Sep 17 00:00:00 2001
+From b52c93f98da943d54e563421cb5f6ec34eedf3c1 Mon Sep 17 00:00:00 2001
 From: cchaduvu <chandrasekhar.chaduvula@amd.com>
 Date: Fri, 17 Apr 2026 16:49:07 +0530
 Subject: [PATCH 2/2] max96716: update nDes6 init for 12-bit 8MP sensor VCID
@@ -16,7 +16,8 @@ This change adds proper 12-bit and VC-ID support for
 Signed-off-by: cchaduvu <chandrasekhar.chaduvula@amd.com>
 ---
  .../src/usr_sensor/include/fmc/max96716.h     | 64 +++++++------------
- 1 file changed, 24 insertions(+), 40 deletions(-)
+ .../src/usr_sensor/source/fmc/max96716.c      | 20 +++---
+ 2 files changed, 34 insertions(+), 50 deletions(-)
 
 diff --git a/sensor_drivers/src/usr_sensor/include/fmc/max96716.h b/sensor_drivers/src/usr_sensor/include/fmc/max96716.h
 index a0e8c9f..0a7326c 100755
@@ -99,6 +100,71 @@ index a0e8c9f..0a7326c 100755
  	{MAX929X_TABLE_WAIT, MAX929X_TABLE_WAIT_MS},
  	{MAX929X_TABLE_END, 0}
  };
+diff --git a/sensor_drivers/src/usr_sensor/source/fmc/max96716.c b/sensor_drivers/src/usr_sensor/source/fmc/max96716.c
+index cd629ce..c0b939d 100755
+--- a/sensor_drivers/src/usr_sensor/source/fmc/max96716.c
++++ b/sensor_drivers/src/usr_sensor/source/fmc/max96716.c
+@@ -183,9 +183,9 @@ desInterface ndes_arr[DS_MAX] = {
+ 		PDB_DES_DES1,
+ 		in_deinit,
+ 		NO_LINK,
+-		{/*Link A*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_0_ALIAS_ADDR, SENSOR_IMX623_ADDRESS,
++		{/*Link A*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_0_ALIAS_ADDR, SENSOR_IMX728_ADDRESS,
+ 			SENSOR_0_ALIAS_ADDR},
+-		{/*Link B*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_1_ALIAS_ADDR, SENSOR_IMX623_ADDRESS,
++		{/*Link B*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_1_ALIAS_ADDR, SENSOR_IMX728_ADDRESS,
+ 			SENSOR_1_ALIAS_ADDR}
+ 	},
+ 	{
+@@ -198,10 +198,10 @@ desInterface ndes_arr[DS_MAX] = {
+ 		{/*Link A*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_2_ALIAS_ADDR, SENSOR_OX5B_ADDRESS,
+ 			SENSOR_2_ALIAS_ADDR},
+ #else
+-		{/*Link A*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_2_ALIAS_ADDR, SENSOR_IMX623_ADDRESS,
++		{/*Link A*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_2_ALIAS_ADDR, SENSOR_IMX728_ADDRESS,
+ 			SENSOR_2_ALIAS_ADDR},
+ #endif
+-		{/*Link B*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_3_ALIAS_ADDR, SENSOR_IMX623_ADDRESS,
++		{/*Link B*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_3_ALIAS_ADDR, SENSOR_IMX728_ADDRESS,
+ 			SENSOR_3_ALIAS_ADDR}
+ 	},
+ 	{
+@@ -210,9 +210,9 @@ desInterface ndes_arr[DS_MAX] = {
+ 		PDB_DES_DES3,
+ 		in_deinit,
+ 		NO_LINK,
+-		{/*Link A*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_4_ALIAS_ADDR, SENSOR_IMX623_ADDRESS,
++		{/*Link A*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_4_ALIAS_ADDR, SENSOR_IMX728_ADDRESS,
+ 			SENSOR_4_ALIAS_ADDR},
+-		{/*Link B*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_5_ALIAS_ADDR, SENSOR_IMX623_ADDRESS,
++		{/*Link B*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_5_ALIAS_ADDR, SENSOR_IMX728_ADDRESS,
+ 			SENSOR_5_ALIAS_ADDR}
+ 	},
+ 	{
+@@ -221,9 +221,9 @@ desInterface ndes_arr[DS_MAX] = {
+ 		PDB_DES_DES4,
+ 		in_deinit,
+ 		NO_LINK,
+-		{/*Link A*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_6_ALIAS_ADDR, SENSOR_IMX623_ADDRESS,
++		{/*Link A*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_6_ALIAS_ADDR, SENSOR_IMX728_ADDRESS,
+ 			SENSOR_6_ALIAS_ADDR},
+-		{/*Link B*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_7_ALIAS_ADDR, SENSOR_IMX623_ADDRESS,
++		{/*Link B*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_7_ALIAS_ADDR, SENSOR_IMX728_ADDRESS,
+ 			SENSOR_7_ALIAS_ADDR}
+ 	},
+ 	{
+@@ -243,9 +243,9 @@ desInterface ndes_arr[DS_MAX] = {
+ 		PDB_DES_DES6,
+ 		in_deinit,
+ 		NO_LINK,
+-		{/*Link A*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_10_ALIAS_ADDR, SENSOR_OX5B_ADDRESS,
++		{/*Link A*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_10_ALIAS_ADDR, SENSOR_IMX728_ADDRESS,
+ 			SENSOR_10_ALIAS_ADDR},
+-		{/*Link B*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_11_ALIAS_ADDR, SENSOR_OX5B_ADDRESS,
++		{/*Link B*/SERIALIZER_DEFAULT_ADDR, SERIALIZER_11_ALIAS_ADDR, SENSOR_IMX728_ADDRESS,
+ 			SENSOR_11_ALIAS_ADDR}
+ 	},
+ 	{
 -- 
 2.43.0
 

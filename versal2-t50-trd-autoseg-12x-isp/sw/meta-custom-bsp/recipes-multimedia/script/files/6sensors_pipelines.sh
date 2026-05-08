@@ -37,11 +37,11 @@ insmod /usr/share/visp_video.ko
 sleep 2
 
 dmesg -n 8
-modetest -D b0070000.v_mix
+modetest -D b0040000.v_mix
 sleep 3
 # HDMI modetest 
 
-modetest -D b0070000.v_mix -s 67:7680x4320-30@BG24&
+modetest -D b0040000.v_mix -s 67:7680x4320-30@BG24&
 
 sleep 5
 # Step 6: Configure sensor

@@ -12,9 +12,9 @@ mv /lib/modules/6.12.40-xilinx-g31626ef92ff1/updates/visp_video/visp_video.ko  /
 
 sleep 1
 
-unzip  pl_overlay.zip
-cp -rf  pl_overlay /lib/firmware/xilinx
-dfx-mgr-client -load pl_overlay
+unzip  12x-isp_overlay.zip
+cp -rf  12x-isp_overlay /lib/firmware/xilinx
+dfx-mgr-client -load 12x-isp_overlay
 
 sleep 5
 # Step 2: Load RPU firmware

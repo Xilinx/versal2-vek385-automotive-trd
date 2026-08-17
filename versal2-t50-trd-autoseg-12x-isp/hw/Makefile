@@ -34,7 +34,7 @@ help:
 	@echo '    Generate xsa and sdt files'
 	@echo ''
 	@echo '  Options:'
-	@echo '    JOBS: optional param to set number of synthesis jobs (default: 8)'
+	@echo '    JOBS: optional param to set number of synthesis jobs (default: 28)'
 	@echo ''
 
 .PHONY: all
@@ -50,4 +50,4 @@ sdt: $(SDT_SRC) $(VIV_XSA)
 
 .PHONY: clean
 clean:
-	$(RM) $(VIV_PRJ_DIR) vivado* .Xil *dynamic* *.log *.xpe .crashReporter hd_visual *.swp
+	$(RM) $(VIV_PRJ_DIR) vivado* .Xil *dynamic* *.log *.xpe .crashReporter hd_visual *.swp README.hw $(VIV_DESIGN)-sdt

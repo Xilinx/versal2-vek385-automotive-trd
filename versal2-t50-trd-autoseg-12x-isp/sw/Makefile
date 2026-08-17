@@ -17,17 +17,17 @@ BUILD_BASE := $(WORK_DIR)
 # Yocto repository configuration (clones to current path)
 REPO_URL := https://storage.googleapis.com/git-repo-downloads/repo
 REPO_MANIFEST_URL := https://github.com/Xilinx/yocto-manifests.git
-REPO_BRANCH := refs/tags/amd-edf-rel-v25.11
+REPO_BRANCH := refs/tags/amd-edf-rel-v26.06
 REPO_MANIFEST_FILE := default-edf.xml
-YOCTO_DIR := $(BUILD_BASE)/yocto-edf-25.11
+YOCTO_DIR := $(BUILD_BASE)/yocto-edf-26.1
 
 # Build target configuration
-MACHINE := versal-2ve-2vm-vek385-revb-sdt-seg
+MACHINE := versal-2ve-2vm-vek385-revb-multidomain
 SDT_DIR := $(BUILD_BASE)/../hw/Versal2_T50_12Sensor_ISP-sdt
 IMAGE_OSPI := edf-ospi
 IMAGE_ROOTFS := edf-linux-disk-image
 
-VEK385_TEMPLATE := ../sources/meta-amd-adaptive-socs/meta-amd-adaptive-socs-bsp/conf/machineyaml/versal-2ve-2vm-vek385-revb-sdt-seg.yaml
+VEK385_TEMPLATE := ../sources/meta-amd-adaptive-socs/meta-amd-adaptive-socs-bsp/conf/machineyaml/versal-2ve-2vm-vek385-revb-multidomain.yaml
 
 # Detect if current path is on NFS filesystem
 # Checks for 'nfs' or 'nfs4' filesystem type
@@ -242,12 +242,12 @@ gen-machine: configure
 		echo "Parsing hardware description and generating device tree..."; \
 		cd $(YOCTO_DIR); \
 		source edf-init-build-env; \
-		gen-machineconf parse-sdt --template $(VEK385_TEMPLATE) --hw-description $(SDT_DIR) || { \
+		gen-machineconf parse-sdt --template $(VEK385_TEMPLATE) --hw-description $(SDT_DIR) --add-config CONFIG_SUBSYSTEM_PL_INPUT_DTSI=\"$(YOCTO_DIR)/sources/meta-custom-bsp/pl_user.dtsi\" || { \
 			printf "%b\n" "$(COLOR_YELLOW)Error: Failed to generate machine configuration$(COLOR_RESET)"; \
 			exit 1; \
 		}; \
 		echo ""; \
-		echo "Generated machine file as $(YOCTO_DIR)/build/conf/machine/versal-2ve-2vm-vek385-revb-sdt-seg.conf"; \
+		echo "Generated machine file as $(YOCTO_DIR)/build/conf/machine/versal-2ve-2vm-vek385-revb-multidomain.conf"; \
 		ls -lh $(YOCTO_DIR)/build/output 2>/dev/null || echo "  (directory listing unavailable)"; \
 		echo ""; \
 		printf "%b\n" "$(COLOR_GREEN)Machine configuration generated: $(MACHINE)$(COLOR_RESET)"; \
@@ -330,12 +330,12 @@ artifacts: build-ospi build-rootfs
 	else \
 		printf "%b\n" "$(COLOR_YELLOW)⚠$(COLOR_RESET) RootFS NOT FOUND"; \
 	fi; \
-	PL_DTSI="$(YOCTO_DIR)/build/conf/dts/$(MACHINE)/pl-overlay-full/pl.dtsi"; \
-	if [ -f "$$PL_DTSI" ]; then \
-		cp "$$PL_DTSI" $(BUILD_BASE)/artifacts/pl.dtsi; \
-		printf "%b\n" "$(COLOR_GREEN)✓$(COLOR_RESET) Copied pl.dtsi"; \
+	PL_DTSO="$(YOCTO_DIR)/build/conf/dts/$(MACHINE)/pl-overlay-full/pl.dtso"; \
+	if [ -f "$$PL_DTSO" ]; then \
+		cp "$$PL_DTSO" $(BUILD_BASE)/artifacts/pl.dtso; \
+		printf "%b\n" "$(COLOR_GREEN)✓$(COLOR_RESET) Copied pl.dtso"; \
 	else \
-		printf "%b\n" "$(COLOR_YELLOW)⚠$(COLOR_RESET) pl.dtsi not found: $(YOCTO_DIR)/build/conf/dts/$(MACHINE)/pl-overlay-full/pl.dtsi"; \
+		printf "%b\n" "$(COLOR_YELLOW)⚠$(COLOR_RESET) pl.dtso not found: $(YOCTO_DIR)/build/conf/dts/$(MACHINE)/pl-overlay-full/pl.dtso"; \
 	fi
 	@echo ""
 	@ls -lh $(BUILD_BASE)/artifacts/ 2>/dev/null
@@ -361,7 +361,7 @@ build: artifacts
 	@echo "Key files copied:"
 	@echo "  - ospi.bin (OSPI boot image)"
 	@echo "  - edf-linux.wic.xz (rootfs)"
-	@echo "  - pl.dtsi (device tree overlay)"
+	@echo "  - pl.dtso (device tree overlay)"
 	@echo ""
 
 #===============================================================================

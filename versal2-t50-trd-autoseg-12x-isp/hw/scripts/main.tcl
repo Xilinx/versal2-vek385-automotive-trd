@@ -266,5 +266,6 @@ wait_on_run impl_1
 puts "INFO: Design Timing WNS:[get_property STATS.WNS [current_run]]; TNS:[get_property STATS.TNS [current_run]]; WHS:[get_property STATS.WHS [current_run]]; THS:[get_property STATS.THS [current_run]]; TPWS:[get_property STATS.TPWS [current_run]]"
 
 write_hw_platform -fixed -force -include_bit -file $project_dir/${design_nm}.xsa
+
 close_project
 exit

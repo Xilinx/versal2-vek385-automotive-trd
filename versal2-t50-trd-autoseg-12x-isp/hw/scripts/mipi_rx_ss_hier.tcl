@@ -24,7 +24,7 @@ set script_folder [_tcl::get_script_folder]
 ################################################################
 # Check if script is running in correct Vivado version.
 ################################################################
-set scripts_vivado_version 2025.2
+set scripts_vivado_version 2026.1
 set current_vivado_version [version -short]
 
 if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
@@ -1143,6 +1143,7 @@ proc create_hier_cell_mipi_rx_ss_hier { parentCell nameHier } {
   # Create instance: visp_ss_0, and set properties
   set visp_ss_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:visp_ss visp_ss_0 ]
   set_property -dict [list \
+    CONFIG.C_ENABLE_OVERDRIVE {1} \
     CONFIG.C_LLPATH0_TILE {3} \
     CONFIG.C_LLPATH1_TILE {3} \
     CONFIG.C_TILE0_COMMON_IBA3_DATA_FORMAT {12} \
@@ -1313,6 +1314,7 @@ proc create_hier_cell_mipi_rx_ss_hier { parentCell nameHier } {
     CONFIG.C_TILE2_ISP0_IBA0_DATA_FORMAT {10} \
     CONFIG.C_TILE2_ISP0_IBA0_FPS {30} \
     CONFIG.C_TILE2_ISP0_IBA1_DATA_FORMAT {10} \
+    CONFIG.C_TILE2_ISP0_IBA1_VCID {1} \
     CONFIG.C_TILE2_ISP0_IIC_PS_CHECK {true} \
     CONFIG.C_TILE2_ISP0_IIC_SELECT {0} \
     CONFIG.C_TILE2_ISP0_IO_TYPE {2} \
@@ -1324,6 +1326,7 @@ proc create_hier_cell_mipi_rx_ss_hier { parentCell nameHier } {
     CONFIG.C_TILE2_ISP1_GPIO_PS_CHECK {true} \
     CONFIG.C_TILE2_ISP1_GPIO_SELECT {1} \
     CONFIG.C_TILE2_ISP1_IBA3_DATA_FORMAT {10} \
+    CONFIG.C_TILE2_ISP1_IBA3_FPS {30} \
     CONFIG.C_TILE2_ISP1_IBA3_VCID {0} \
     CONFIG.C_TILE2_ISP1_IBA4_DATA_FORMAT {10} \
     CONFIG.C_TILE2_ISP1_IBA4_FPS {30} \
@@ -1335,6 +1338,7 @@ proc create_hier_cell_mipi_rx_ss_hier { parentCell nameHier } {
     CONFIG.C_TILE2_ISP1_NETFPS {60} \
     CONFIG.C_TILE2_ISP1_RPU {8} \
     CONFIG.C_TILE2_VIDIN0_TDATA_WIDTH {40} \
+    CONFIG.C_TILE2_VIDIN1_TDATA_WIDTH {40} \
     CONFIG.C_TILE2_VIDIN3_TDATA_WIDTH {40} \
     CONFIG.C_TILE2_VIDIN4_TDATA_WIDTH {40} \
   ] $visp_ss_0

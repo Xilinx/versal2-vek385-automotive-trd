@@ -1,22 +1,22 @@
-SUMMARY = "script for pipelines running"
-DESCRIPTION = "script for ISP 12x pipelines"
+SUMMARY = "scripts for pipelines running"
+DESCRIPTION = "scripts for ISP 12x and 4+1 pipelines"
 LICENSE="CLOSED"
 
 S = "${WORKDIR}"
 
 
-SRC_URI = "file://12sensors_pipelines.sh \
-	   file://6sensors_pipelines.sh \
+SRC_URI = "file://run_4_1_pipelines.sh \
+	   file://running_commands.sh \
 "
 
 do_install() {
     install -d ${D}${datadir}
-    install -m 0644 ${WORKDIR}/12sensors_pipelines.sh ${D}${datadir}/12sensors_pipelines.sh
-    install -m 0644 ${WORKDIR}/6sensors_pipelines.sh ${D}${datadir}/6sensors_pipelines.sh
+    install -m 0644 ${WORKDIR}/run_4_1_pipelines.sh ${D}${datadir}/run_4_1_pipelines.sh
+    install -m 0644 ${WORKDIR}/running_commands.sh ${D}${datadir}/running_commands.sh
 
 }
-FILES:${PN} += "${datadir}/6sensors_pipelines.sh"
-FILES:${PN} += "${datadir}/12sensors_pipelines.sh"
+FILES:${PN} += "${datadir}/run_4_1_pipelines.sh"
+FILES:${PN} += "${datadir}/running_commands.sh"
 
 
 

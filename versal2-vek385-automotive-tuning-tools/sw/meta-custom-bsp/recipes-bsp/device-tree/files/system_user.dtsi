@@ -1,0 +1,5 @@
+/ {
+	reserved-memory {
+		/delete-node/ cma_reserved@800000000;
+	};
+};

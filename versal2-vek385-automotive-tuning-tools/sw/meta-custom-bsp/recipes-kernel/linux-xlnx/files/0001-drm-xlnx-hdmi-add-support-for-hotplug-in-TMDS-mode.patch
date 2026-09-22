@@ -1,0 +1,306 @@
+From 6531aa1e3e0209da45a1555f0718acc650bf83ab Mon Sep 17 00:00:00 2001
+From: Rajesh Gugulothu <rajesh.gugulothu@amd.com>
+Date: Wed, 3 Jun 2026 18:16:00 +0530
+Subject: [EMBEDDEDSW PATCH] drm: xlnx: hdmi: add support for hotplug in TMDS
+ mode
+
+HDMI sinks pulse HPD low briefly during internal transitions while
+streaming.  The existing 1 s debounce then tears the bridge/PHY down
+and userspace sees "vblank wait timed out".
+
+Gate HPD handling on hdmi->dpms: while streaming, HPD low only fires
+the hotplug event and HPD high schedules warm_resync_work, which
+re-reads EDID after 200 ms and compares its crc32 against
+last_edid_crc.  Equal -> re-enable AUX and resend InfoFrames;
+different -> fire drm_kms_helper_connector_hotplug_event() and let
+userspace re-probe and atomic_disable if needed.
+
+Also short-circuit ddcread/ddcwrite when !cable_connected, flip dpms
+to OFF first in encoder_disable to close the IRQ-vs-teardown race,
+and log a dev_err on LNK_RDY falling while DPMS_ON.
+
+Signed-off-by: Rajesh Gugulothu <rajesh.gugulothu@amd.com>
+---
+ drivers/gpu/drm/xlnx/xlnx_hdmi.c | 156 +++++++++++++++++++++++++++++--
+ 1 file changed, 150 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/xlnx/xlnx_hdmi.c b/drivers/gpu/drm/xlnx/xlnx_hdmi.c
+index e6b4cc769bb1..7f002f3478a6 100644
+--- a/drivers/gpu/drm/xlnx/xlnx_hdmi.c
++++ b/drivers/gpu/drm/xlnx/xlnx_hdmi.c
+@@ -21,6 +21,7 @@
+ #include <linux/bitfield.h>
+ #include <linux/clk.h>
+ #include <linux/component.h>
++#include <linux/crc32.h>
+ #include <linux/delay.h>
+ #include <linux/hdmi.h>
+ #include <linux/math64.h>
+@@ -574,6 +575,8 @@ struct xlnx_hdmi_stream {
+  * @txhdcp: Hdcp configuration
+  * @hdcp_cp_irq_work: hdcp cp irq interrupt detection worker
+  * @hpd_work: delayed work for HPD low debounce before streamdown
++ * @warm_resync_work: streaming-time HPD-high handler; same-sink resync or sink swap
++ * @last_edid_crc: crc32 of last EDID read; used by @warm_resync_work for sink-swap detection
+  * @hdcp2x_timer_irq: hdcp2x timer interrupt
+  * @hdcp1x_timer_irq: HDCP1X timer interrupt
+  * @hdcp_irq: HDCP1.4 protocol interrupt
+@@ -617,6 +620,8 @@ struct xlnx_hdmi {
+ 	u32 out_fmt_prop_val;
+ 	struct delayed_work hdcp_cp_irq_work;
+ 	struct delayed_work hpd_work;
++	struct delayed_work warm_resync_work;
++	u32 last_edid_crc;
+ 	struct xlnx_hdcptx txhdcp;
+ 	int hdcp2x_timer_irq;
+ 	int hdcp1x_timer_irq;
+@@ -1197,6 +1202,10 @@ static u32 xlnx_hdmi_ddcwrite(struct xlnx_hdmi *hdmi, u8 slave,
+ {
+ 	u32 data, index, status;
+ 
++	/* No sink: skip DDC, the slave will not ACK. */
++	if (!hdmi->cable_connected)
++		return 1;
++
+ 	/* ddc enable */
+ 	xlnx_hdmi_ddc_run_enable(hdmi);
+ 	xlnx_hdmi_ddc_intr_disable(hdmi);
+@@ -1318,6 +1327,10 @@ static u32 xlnx_hdmi_ddcread(struct xlnx_hdmi *hdmi, u8 slave,
+ {
+ 	u32 data, index, status;
+ 
++	/* No sink: skip DDC, the slave will not ACK. */
++	if (!hdmi->cable_connected)
++		return 1;
++
+ 	/* ddc enable */
+ 	xlnx_hdmi_ddc_run_enable(hdmi);
+ 	xlnx_hdmi_ddc_intr_disable(hdmi);
+@@ -2074,6 +2087,29 @@ static void xlnx_hdmi_connect_callback(struct xlnx_hdmi *hdmi)
+ /* HPD low debounce window before triggering streamdown. */
+ #define HDMI_HPD_DEBOUNCE_MS	1000
+ 
++/* Post-HPD DDC settle delay; HDMI 2.1 ch.9 requires >= 100 ms. */
++#define HDMI_WARM_RESYNC_MS	200
++
++static int xlnx_hdmi_get_edid_block(void *data, u8 *buf, unsigned int block,
++				    size_t len);
++
++/* crc32 over EDID base + extension blocks, or 0 if invalid. */
++static u32 xlnx_hdmi_edid_crc(const struct drm_edid *drm_edid)
++{
++	const struct edid *edid;
++	size_t len;
++
++	if (!drm_edid)
++		return 0;
++
++	edid = drm_edid_raw(drm_edid);
++	if (!edid)
++		return 0;
++
++	len = EDID_LENGTH * (1 + edid->extensions);
++	return crc32_le(0, (const u8 *)edid, len);
++}
++
+ static void xlnx_hdmi_hpd_work_func(struct work_struct *work)
+ {
+ 	struct xlnx_hdmi *hdmi = container_of(to_delayed_work(work),
+@@ -2086,6 +2122,17 @@ static void xlnx_hdmi_hpd_work_func(struct work_struct *work)
+ 		return;
+ 	}
+ 
++	/*
++	 * Streaming: keep the pipeline running across the HPD dip.
++	 * A real unplug routes through atomic_disable -> encoder_disable().
++	 */
++	if (hdmi->dpms == DRM_MODE_DPMS_ON) {
++		dev_dbg(hdmi->dev,
++			"hpd: low expired while streaming; pipeline preserved\n");
++		hdmi_mutex_unlock(&hdmi->hdmi_mutex);
++		return;
++	}
++
+ 	xlnx_hdmi_streamdown_callback(hdmi);
+ 	xlnx_hdmi_connect_callback(hdmi);
+ 
+@@ -2095,6 +2142,70 @@ static void xlnx_hdmi_hpd_work_func(struct work_struct *work)
+ 		drm_sysfs_hotplug_event(hdmi->connector.dev);
+ }
+ 
++/*
++ * xlnx_hdmi_warm_resync_work_func - streaming-time HPD reconnect handler
++ *
++ * Runs HDMI_WARM_RESYNC_MS after an HPD rising edge seen at DPMS_ON.
++ * Re-reads EDID and compares its crc32 against @last_edid_crc:
++ *
++ *   - crc differs: sink swap. Fire a per-connector hotplug; userspace
++ *     re-probes via get_modes() and may atomic_disable if the active
++ *     mode is no longer valid on the new sink.
++ *   - crc matches: same-sink bounce. Re-enable AUX and resend
++ *     InfoFrames so the sink can pick up the stream already flowing.
++ *   - EDID unreadable: defer to the next HPD edge.
++ */
++static void xlnx_hdmi_warm_resync_work_func(struct work_struct *work)
++{
++	struct xlnx_hdmi *hdmi = container_of(to_delayed_work(work),
++					      struct xlnx_hdmi,
++					      warm_resync_work);
++	struct drm_connector *connector = &hdmi->connector;
++	const struct drm_edid *drm_edid;
++	bool sink_changed = false;
++	u32 new_crc;
++
++	hdmi_mutex_lock(&hdmi->hdmi_mutex);
++
++	if (!hdmi->cable_connected || hdmi->dpms != DRM_MODE_DPMS_ON) {
++		hdmi_mutex_unlock(&hdmi->hdmi_mutex);
++		return;
++	}
++
++	drm_edid = drm_edid_read_custom(connector,
++					xlnx_hdmi_get_edid_block, hdmi);
++	new_crc = xlnx_hdmi_edid_crc(drm_edid);
++
++	if (drm_edid && new_crc != hdmi->last_edid_crc) {
++		sink_changed = true;
++		dev_info(hdmi->dev,
++			 "hpd: sink swap during streaming (EDID crc 0x%08x -> 0x%08x)\n",
++			 hdmi->last_edid_crc, new_crc);
++		hdmi->last_edid_crc = new_crc;
++	} else if (drm_edid) {
++		hdmi->last_edid_crc = new_crc;
++		dev_dbg(hdmi->dev, "hpd: warm resync (same sink)\n");
++
++		/* Sink resets SCDC on HPD low; re-assert for >3.4 Gbps TMDS. */
++		if (hdmi->stream.is_scrambled)
++			xlnx_hdmi_clkratio(hdmi);
++
++		xlnx_hdmi_aux_enable(hdmi);
++		xlnx_hdmi_send_infoframes(hdmi);
++	} else {
++		dev_dbg(hdmi->dev,
++			"hpd: warm resync: EDID unreadable, deferring\n");
++	}
++
++	hdmi_mutex_unlock(&hdmi->hdmi_mutex);
++
++	drm_edid_free(drm_edid);
++
++	/* Fire hotplug outside the mutex; get_modes() refreshes display_info. */
++	if (sink_changed && connector->dev)
++		drm_kms_helper_connector_hotplug_event(connector);
++}
++
+ static void xlnx_hdmi_frl_config(struct xlnx_hdmi *hdmi)
+ {
+ 	union phy_configure_opts phy_cfg = {0};
+@@ -2813,6 +2924,8 @@ static void xlnx_hdmi_piointr_handler(struct xlnx_hdmi *hdmi)
+ 
+ 	/* HPD event has occurred */
+ 	if (event & HDMI_TX_PIO_IN_HPD_CONNECT) {
++		bool streaming = (hdmi->dpms == DRM_MODE_DPMS_ON);
++
+ 		if (data & HDMI_TX_PIO_IN_HPD_CONNECT) {
+ 			bool was_bounce;
+ 
+@@ -2822,6 +2935,13 @@ static void xlnx_hdmi_piointr_handler(struct xlnx_hdmi *hdmi)
+ 			was_bounce = cancel_delayed_work(&hdmi->hpd_work);
+ 			if (was_bounce) {
+ 				dev_dbg(hdmi->dev, "hpd: high (bounce)\n");
++			} else if (streaming) {
++				/* Streaming reconnect: soft re-arm via worker. */
++				dev_dbg(hdmi->dev,
++					"hpd: high (streaming reconnect)\n");
++				mod_delayed_work(system_wq,
++						 &hdmi->warm_resync_work,
++						 msecs_to_jiffies(HDMI_WARM_RESYNC_MS));
+ 			} else {
+ 				dev_dbg(hdmi->dev, "hpd: high (cold plug)\n");
+ 				xlnx_hdmi_connect_callback(hdmi);
+@@ -2833,10 +2953,20 @@ static void xlnx_hdmi_piointr_handler(struct xlnx_hdmi *hdmi)
+ 		} else {
+ 			hdmi->cable_connected = 0;
+ 			hdmi->connector.status = connector_status_disconnected;
+-			dev_dbg(hdmi->dev, "hpd: low; debounce armed\n");
+-			/* Rising edge within the window cancels this. */
+-			mod_delayed_work(system_wq, &hdmi->hpd_work,
+-					 msecs_to_jiffies(HDMI_HPD_DEBOUNCE_MS));
++			/* Cancel any pending warm resync; sink is gone now. */
++			cancel_delayed_work(&hdmi->warm_resync_work);
++			if (streaming) {
++				/* Streaming: do not arm streamdown debounce. */
++				dev_dbg(hdmi->dev,
++					"hpd: low (streaming; pipeline preserved)\n");
++				if (hdmi->connector.dev)
++					drm_sysfs_hotplug_event(hdmi->connector.dev);
++			} else {
++				dev_dbg(hdmi->dev, "hpd: low; debounce armed\n");
++				/* Rising edge within the window cancels this. */
++				mod_delayed_work(system_wq, &hdmi->hpd_work,
++						 msecs_to_jiffies(HDMI_HPD_DEBOUNCE_MS));
++			}
+ 		}
+ 	}
+ 
+@@ -2895,6 +3025,12 @@ static void xlnx_hdmi_piointr_handler(struct xlnx_hdmi *hdmi)
+ 			hdmi->stream.state = HDMI_TX_STATE_STREAM_DOWN;
+ 			/* Disable AUX */
+ 			xlnx_hdmi_aux_disable(hdmi);
++
++			/* LNK_RDY falling at DPMS_ON: real link loss (HPD bounce keeps LNK_RDY high). */
++			if (hdmi->dpms == DRM_MODE_DPMS_ON)
++				dev_err(hdmi->dev,
++					"streaming link lost: PIO_IN=0x%x\n",
++					data);
+ 		}
+ 	}
+ }
+@@ -3196,6 +3332,9 @@ static int xlnx_hdmi_connector_get_modes(struct drm_connector *connector)
+ 
+ 	drm_edid = drm_edid_read_custom(connector, xlnx_hdmi_get_edid_block, hdmi);
+ 
++	/* Track last EDID for sink-swap detection in warm_resync_work. */
++	hdmi->last_edid_crc = xlnx_hdmi_edid_crc(drm_edid);
++
+ 	/* Set HDMI FRL or TMDS Mode */
+ 	xlnx_hdmi_set_frl_tmds_mode(connector);
+ 
+@@ -3309,13 +3448,15 @@ static void xlnx_hdmi_encoder_disable(struct drm_encoder *encoder)
+ 	struct xlnx_hdmi *hdmi = encoder_to_hdmi(encoder);
+ 	struct xlnx_hdmi_config *config = &hdmi->config;
+ 
++	/* Set DPMS_OFF first so a racing HPD IRQ takes the non-streaming branch. */
++	xlnx_hdmi_encoder_dpms(encoder, DRM_MODE_DPMS_OFF);
++
+ 	cancel_delayed_work_sync(&hdmi->hpd_work);
++	cancel_delayed_work_sync(&hdmi->warm_resync_work);
+ 
+ 	if (hdmi->bridge)
+ 		xlnx_bridge_disable(hdmi->bridge);
+ 
+-	xlnx_hdmi_encoder_dpms(encoder, DRM_MODE_DPMS_OFF);
+-
+ 	/* Disable the EXT VRST which actually starts the bridge */
+ 	xlnx_hdmi_ext_sysrst_assert(hdmi);
+ 	if (xlnx_hdmi_is_lnk_vid_rdy(hdmi)) {
+@@ -4295,6 +4436,8 @@ static int xlnx_hdmi_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	INIT_DELAYED_WORK(&hdmi->hpd_work, xlnx_hdmi_hpd_work_func);
++	INIT_DELAYED_WORK(&hdmi->warm_resync_work,
++			  xlnx_hdmi_warm_resync_work_func);
+ 
+ 	/* Request the interrupt */
+ 	ret = devm_request_threaded_irq(hdmi->dev, hdmi->irq,
+@@ -4362,6 +4505,7 @@ static void xlnx_hdmi_remove(struct platform_device *pdev)
+ 		num_clks--;
+ 
+ 	cancel_delayed_work_sync(&hdmi->hpd_work);
++	cancel_delayed_work_sync(&hdmi->warm_resync_work);
+ 
+ 	if (hdmi->bridge)
+ 		xlnx_bridge_disable(hdmi->bridge);
+-- 
+2.49.1
+

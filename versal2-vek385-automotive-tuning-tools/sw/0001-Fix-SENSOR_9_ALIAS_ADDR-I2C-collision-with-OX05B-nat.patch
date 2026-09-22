@@ -1,0 +1,40 @@
+From 7d9b366900df3aa10c9cac756742ab68091b100b Mon Sep 17 00:00:00 2001
+From: cchaduvu <cchaduvu@amd.com>
+Date: Wed, 5 Aug 2026 17:13:08 +0530
+Subject: [PATCH] Fix SENSOR_9_ALIAS_ADDR I2C collision with OX05B native
+ address
+
+SENSOR_9_ALIAS_ADDR was set to 0x20, which collides with
+SENSOR_OX5B_ADDRESS/SENSOR_DEFAULT_ADDRSS (0x20) on the shared I2C
+bus. When 5MP (OX05B) links share the bus with the 8MP (IMX728) des5
+LINK B, this alias conflict broke re-launch of the second 8MP sensor.
+
+Change SENSOR_9_ALIAS_ADDR to 0x28, which is unused by any other
+alias or native sensor address.
+---
+ sensor_drivers/src/usr_sensor/include/isi/isi_fmc.h | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/sensor_drivers/src/usr_sensor/include/isi/isi_fmc.h b/sensor_drivers/src/usr_sensor/include/isi/isi_fmc.h
+index d341657..507bdf9 100755
+--- a/sensor_drivers/src/usr_sensor/include/isi/isi_fmc.h
++++ b/sensor_drivers/src/usr_sensor/include/isi/isi_fmc.h
+@@ -144,7 +144,14 @@
+ #define SENSOR_6_ALIAS_ADDR			(0x3A)
+ #define SENSOR_7_ALIAS_ADDR			(0x3C)
+ #define SENSOR_8_ALIAS_ADDR			(0x3E)
+-#define SENSOR_9_ALIAS_ADDR			(0x20)
++/*
++ * 0x28: was 0x20, which collided with SENSOR_OX5B_ADDRESS/SENSOR_DEFAULT_ADDRSS
++ * (0x20) on the shared I2C bus. When 5MP (OX05B) links share the bus with the
++ * 8MP (IMX728) des5 LINK B, the old 0x20 alias conflicted with the OX05B native
++ * address and broke re-launch of the second 8MP sensor. 0x28 is unused by any
++ * alias or native sensor address.
++ */
++#define SENSOR_9_ALIAS_ADDR         		(0x28)
+ #define SENSOR_10_ALIAS_ADDR			(0x22)
+ #define SENSOR_11_ALIAS_ADDR			(0x24)
+ 
+-- 
+2.34.1
+

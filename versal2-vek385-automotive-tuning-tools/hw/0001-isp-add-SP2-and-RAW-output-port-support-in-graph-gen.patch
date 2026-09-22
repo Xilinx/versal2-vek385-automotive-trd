@@ -1,0 +1,46 @@
+From 738ac6521cf433d82d63bbd7ba363e049b8872f0 Mon Sep 17 00:00:00 2001
+From: cchaduvu <cchaduvu@amd.com>
+Date: Tue, 25 Aug 2026 22:59:56 +0530
+Subject: [PATCH] isp: add SP2 and RAW output port support in graph generation
+
+Extend ISP output port handling to create MP, SP, SP2, and RAW
+output ports. Update port type mapping and video label generation
+to support the additional output streams.
+
+Signed-off-by: cchaduvu <cchaduvu@amd.com>
+---
+ visp_ss/data/visp_ss.tcl | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/visp_ss/data/visp_ss.tcl b/visp_ss/data/visp_ss.tcl
+index 53d43ad4..dafef0d6 100755
+--- a/visp_ss/data/visp_ss.tcl
++++ b/visp_ss/data/visp_ss.tcl
+@@ -314,12 +314,12 @@ proc handle_io_mode_2 {drv_handle tile isp isp_id default_dts sub_node sub_node_
+ 				set visp_inip [find_valid_visp_inip $drv_handle $visp_ip_name]
+ 				visp_ss_inip_endpoints $drv_handle $ports_node $default_dts "${sub_node_label}${port_addr_counter}" $port_addr_counter $visp_inip
+ 				incr port_addr_counter 5
+-
+-			} elseif {$port_idx % 5 == 1 || $port_idx % 5 == 2} {
+-				# MP or SP output port creation
+-				set type [expr {$port_idx % 5 == 1 ? "mp" : "sp"}]
++			} elseif {$port_idx % 5 >= 1 && $port_idx % 5 <= 4} {
++				# MP, SP, SP2, RAW output port creation
++				set slot [expr {$port_idx % 5}]
++				set type [lindex {mp sp sp2 raw} [expr {$slot - 1}]]
+ 				set visp_label "visp_isp${isp_id}_port${isp_id}${iba_mod}_${type}"
+-				set video_label "visp_video_${isp_id}_${iba_mod}_[expr {$type eq "mp" ? 0 : 1}]"
++				set video_label "visp_video_${isp_id}_${iba_mod}_[expr {$slot - 1}]"
+ 				set vport_label "vport${isp_id}${port_idx}"
+ 
+ 				# VISP side
+@@ -1253,4 +1253,4 @@ proc get_visp_baseaddr {drv_handle} {
+         return [string trimleft [lindex $apu_addrs 0] "0x"]
+     }
+     return ""
+-}
+\ No newline at end of file
++}
+-- 
+2.43.0
+

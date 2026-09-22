@@ -1,0 +1,38 @@
+From 68cc0feebf352c0ed13e9eca33745313481f4bd9 Mon Sep 17 00:00:00 2001
+From: cchaduvu <cchaduvu@amd.com>
+Date: Wed, 26 Aug 2026 19:56:19 +0530
+Subject: [PATCH] visp_video: reduce min_queued_buffers from 5 to 3 for ISP 
+ Tuning Tool v2.0
+
+The Versal AI Edge Gen2 ISP Tuning Tool v2.0 allocates only 3 video
+buffers when capturing frames via the V4L2 interface. The visp_video
+driver's vb2 queue was configured with min_queued_buffers = 5, which
+causes vb2_core_reqbufs() to enforce a minimum of 5 buffers. When the
+tuning tool requests only 3 buffers via VIDIOC_REQBUFS, the vb2
+framework silently adjusts the count upward, leading to a buffer count
+mismatch that causes the tuning tool to fail silently during streaming.
+
+Reduce min_queued_buffers to 3 so the vb2 queue accepts the buffer
+count requested by the tuning tool, allowing it to operate correctly.
+
+Signed-off-by: cchaduvu <cchaduvu@amd.com>
+---
+ visp_video/visp_video_register.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/visp_video/visp_video_register.c b/visp_video/visp_video_register.c
+index c584d28..b2ce8c7 100644
+--- a/visp_video/visp_video_register.c
++++ b/visp_video/visp_video_register.c
+@@ -2909,7 +2909,7 @@ static int visp_video_queue_init(struct visp_video_dev *visp_vdev)
+ 	queue->lock = &visp_vdev->video_lock;
+ 	queue->dev = visp_vdev->visp_mdev->dev;
+ 
+-	queue->min_queued_buffers = 5;
++	queue->min_queued_buffers = 3;
+ 
+ 	ret = vb2_queue_init(queue);
+ 	if (ret) {
+-- 
+2.43.7
+
